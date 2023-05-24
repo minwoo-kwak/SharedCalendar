@@ -1,4 +1,13 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
+import java.util.Calendar;
 
 public class CalendarSystem {
    
@@ -80,7 +89,7 @@ public class CalendarSystem {
             System.out.println("해당일자에 일정이 없습니다.");
             System.out.println("1.일정 추가");
          }else{
-            System.out.println("1.일정 추가 2.일정 상세 보기  3.일정 수정 4.일정 삭제 5.뒤로가기");
+            System.out.println("1.일정 추가 2.일정 상세 보기  3.일정 수정 4.일정 삭제 5.뒤로가기6.리포트저장");
          }
        String menu = sc.nextLine();
         switch (menu) {
@@ -99,6 +108,8 @@ public class CalendarSystem {
         case "5":
            mc.show();
            break;
+        case "6":
+        	makeReport();
         }
     }
    private void removeSchedule(int selectedDay) {
@@ -205,6 +216,82 @@ public class CalendarSystem {
          mc.show();
          menu();
       }
+   }
+   
+   // 리포트 생성
+   public void makeReport() {
+       List<Schedule> pastSchedules = new ArrayList<>();
+       List<Schedule> upcomingSchedules = new ArrayList<>();
+
+       Date currentDate = new Date(); // 현재 날짜 가져오기
+       Calendar calendar = Calendar.getInstance();
+       calendar.setTime(currentDate);
+
+       // 현재 날짜를 기준으로 지난 일정과 앞으로의 일정을 분류
+       for (Schedule schedule : mc.getScheduleList()) {
+           if (schedule.getStartDay() < calendar.get(Calendar.DAY_OF_MONTH)) {
+               pastSchedules.add(schedule);
+           } else {
+               upcomingSchedules.add(schedule);
+           }
+       }
+
+       // 분류된 일정들을 리포트로 작성하여 파일로 저장
+       SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+       String timeStamp = dateFormat.format(currentDate);
+       String fileName = "report_" + timeStamp + ".txt"; // 파일 확장자 : txt
+
+
+
+//       // 파일 경로 입력 받기
+//       System.out.println("파일을 저장할 경로를 입력하세요:");
+//       String filePath = sc.nextLine();
+       String filePath = "C:\\Temp";
+
+       // 파일 생성 및 쓰기
+       try {
+           File file = new File(filePath, fileName);
+           FileWriter fw = new FileWriter(file);
+           BufferedWriter bw = new BufferedWriter(fw);
+
+           // 지난 일정
+           bw.write("===== Past Schedules =====");
+           bw.newLine();
+           for (Schedule schedule : pastSchedules) {
+               bw.write("일정 번호: " + schedule.getNo());
+               bw.newLine();
+               bw.write("일정 이름: " + schedule.getScheduleName());
+               bw.newLine();
+               bw.write("작성자: " + schedule.getWriter());
+               bw.newLine();
+               // 나머지 일정 정보들도 필요한 경우 추가 작성
+               bw.newLine();
+           }
+
+           bw.newLine();
+
+           // 앞으로의 일정
+           bw.write("===== Upcoming Schedules =====");
+           bw.newLine();
+           for (Schedule schedule : upcomingSchedules) {
+               bw.write("일정 번호: " + schedule.getNo());
+               bw.newLine();
+               bw.write("일정 이름: " + schedule.getScheduleName());
+               bw.newLine();
+               bw.write("작성자: " + schedule.getWriter());
+               bw.newLine();
+               // 나머지 일정 정보들도 필요한 경우 추가 작성
+               bw.newLine();
+           }
+
+           bw.close();
+           fw.close();
+
+           System.out.println("리포트가 성공적으로 생성되었습니다.");
+       } catch (IOException e) {
+           System.out.println("파일을 저장하는 도중에 오류가 발생했습니다.");
+           e.printStackTrace();
+       }
    }
     
 
