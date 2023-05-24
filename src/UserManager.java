@@ -7,8 +7,8 @@ public class UserManager { //로그인, 유저정보 메소드 모음
    Scanner sc = new Scanner(System.in); 
    List<User>userList = new ArrayList<User>();
    private static User loginUser = null;
-   String id;
-   String pw;
+   private String id;
+   private String pw;
    
    public void init() { //초기화면
         System.out.print(
@@ -39,6 +39,7 @@ public class UserManager { //로그인, 유저정보 메소드 모음
          if(findById(id).getPw().equals(pw)) {
             loginUser = findById(id);
                 System.out.println(loginUser.getName()+ "님 환영합니다.");
+                
                 break;
          }
          System.out.println("로그인 실패 다시 시도하세요!");
@@ -106,6 +107,10 @@ public class UserManager { //로그인, 유저정보 메소드 모음
             login();
             
             //System.exit(0);
+         case 4:
+        	 CalendarSystem sys = new CalendarSystem();
+             sys.init();
+             break;
             
 
          default:

@@ -92,43 +92,59 @@ public class MakeCalendar {
    }
    
    public void removeSchedule(Schedule schedule) {
-	   scheduleList.remove(schedule);
+      scheduleList.remove(schedule);
    }
+   
    public void addSchedule(Schedule schedule) {
-	      scheduleList.add(schedule);
-	   }
+         scheduleList.add(schedule);
+      }
+   
+   public Schedule search(int no) {
+      for(Schedule sch : scheduleList) {
+         if(sch.getNo()==no) {
+            return sch;
+         }
+      } 
+      return null;
+   }
+//   public Schedule search(Object obj) {
+//      obj instanceof String
+//      for(Schedule sch : scheduleList) {
+//         
+//      }
+//   }
    
    
 
 public List<Schedule> getScheduleList() {
-	return scheduleList;
+   return scheduleList;
 }
 public void setScheduleList(List<Schedule> scheduleList) {
-	this.scheduleList = scheduleList;
+   this.scheduleList = scheduleList;
 }
 public int getDefaultCalendar() {
-	return defaultCalendar;
+   return defaultCalendar;
 }
 public void setDefaultCalendar(int defaultCalendar) {
-	this.defaultCalendar = defaultCalendar;
+   this.defaultCalendar = defaultCalendar;
 }
 public int getYear() {
-	return year;
+   return year;
 }
 public void setYear(int year) {
-	this.year = year;
+   this.year = year;
 }
 public int getMonth() {
-	return month;
+   return month;
 }
 public void setMonth(int month) {
-	this.month = month;
+   this.month = month;
 }
 public int getSelectedDay() {
-	return selectedDay;
+   return selectedDay;
 }
 public void setSelectedDay(int selectedDay) {
-	this.selectedDay = selectedDay;
+   this.selectedDay = selectedDay;
 }
 
    
