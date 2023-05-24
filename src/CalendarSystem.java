@@ -28,7 +28,7 @@ public class CalendarSystem {
     			scheduleManage(status,selectedDay);
     			break;
     		case "2":
-    			//search();
+    			searchSchedule();
     			break;
     		case "3":
     			mc.show();
@@ -39,7 +39,32 @@ public class CalendarSystem {
     		}
     	}
     }
-    public int[] showList() {
+    private void searchSchedule() {
+		// TODO Auto-generated method stub
+    	System.out.println("찾을 방법을 입력하세요 1.일정번호 2.작성자 3.권한 4.카테고리 ");
+    	System.out.print("> ");
+    	String menu = sc.nextLine();
+    	String obj;
+    	switch (menu) {
+		case "1":
+			System.out.print("검색할 일정의 일정번호를 입력하세요 > ");
+			obj = sc.nextLine();
+			//mc.search(obj);
+			break;
+		case "2":
+			
+			break;
+		case "3":
+			
+			break;
+			
+		case "4":
+			
+			break;
+		}
+		
+	}
+	public int[] showList() {
     	System.out.println("일정을 볼 날짜를 입력하세요");
         System.out.print("> ");
         int selectedDay = Integer.parseInt(sc.nextLine());
@@ -79,25 +104,19 @@ public class CalendarSystem {
 		// TODO Auto-generated method stub
 		System.out.println("삭제할 일정의 일정번호를 입력하세요 > ");
 		int upNum = Integer.parseInt(sc.nextLine());
-		int i=0;
-		//mc.daySchedule(selectedDay);
-		for(Schedule sch : mc.getScheduleList()) {
+		Schedule sch= mc.search(upNum);
+		if(sch!=null) {
 			
-			if(sch.getNo()==upNum) {
-				mc.removeSchedule(sch);
+			mc.removeSchedule(sch);
 			}
+		isSchedule(sch);
 		}
-		isSchedule(i);
-	}
 	private void scheduleDetail(int selectedDay) {
 		// TODO Auto-generated method stub
 		System.out.println("상세보기할 일정의 일정번호를 입력하세요 > ");
 		int upNum = Integer.parseInt(sc.nextLine());
-		int i=0;
-		//mc.daySchedule(selectedDay);
-		for(Schedule sch : mc.getScheduleList()) {
-			
-			if(sch.getNo()==upNum) {
+		Schedule sch= mc.search(upNum);
+		if(sch!=null) {
 				System.out.println("일정 번호\t일정 이름\t일정 작성자\t일정 카테고리\t일정 권한\t일정설명");
 				System.out.print(sch.getNo()+"\t");
 				System.out.print(sch.getScheduleName()+"\t");
@@ -105,19 +124,16 @@ public class CalendarSystem {
 				System.out.print(sch.getCategory()+"\t");
 				System.out.print(sch.getAuthority()+"\t");
 				System.out.print(sch.getContent()+"\n");
-				i++;
 			}
+		isSchedule(sch);
 		}
-		isSchedule(i);
-	}
+		
+	
 	private void updateSchedule(int selectedDay) {
 		System.out.print("수정할 일정의 일정번호를 입력하세요 > ");
 		int upNum = Integer.parseInt(sc.nextLine());
-		int i=0;
-		//mc.daySchedule(selectedDay);
-		for(Schedule sch : mc.getScheduleList()) {
-			
-			if(sch.getNo()==upNum) {
+		Schedule sch= mc.search(upNum);
+		if(sch!=null) {
 		        System.out.println("수정할 일정을 입력하세요");
 		        System.out.print("일정이름 > ");
 		        sch.setScheduleName(sc.nextLine());
@@ -143,13 +159,11 @@ public class CalendarSystem {
 		        sch.setCategory(sc.nextLine());
 		        //String category=sc.nextLine();
 		        //Alarm alarm = new Alarm();
-		        i++;
+		        
 			}
+		isSchedule(sch);
 		}
-		isSchedule(i);
-		
-		
-	}
+	
 	private void addSchedule(int selectedDay) {
         System.out.println("추가할 일정을 입력하세요");
         System.out.print("일정이름 > ");
@@ -179,8 +193,8 @@ public class CalendarSystem {
         mc.show();
         menu();
 	}
-	public void isSchedule(int status) {
-		if(status==0) {
+	public void isSchedule(Schedule schedule) {
+		if(schedule==null) {
 			System.out.println("해당하는 일정이 없습니다");
 			mc.show();
 			menu();

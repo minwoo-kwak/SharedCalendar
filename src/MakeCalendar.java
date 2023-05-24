@@ -94,9 +94,19 @@ public class MakeCalendar {
    public void removeSchedule(Schedule schedule) {
 	   scheduleList.remove(schedule);
    }
+   
    public void addSchedule(Schedule schedule) {
 	      scheduleList.add(schedule);
 	   }
+   
+   public Schedule search(int no) {
+	   for(Schedule sch : scheduleList) {
+		   if(sch.getNo()==no) {
+			   return sch;
+		   }
+	   } 
+	   return null;
+   }
    
    
 
