@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 
 public class User {
 	private String id;
@@ -7,11 +8,14 @@ public class User {
 	private String dept;
 	private String phone;
 	private String email;
-	private String join;
+	private LocalDate hireDate;
+	private Vacation vacation;
 	
 	public User() {}
-	public User(String id, String pw, String name, String position, String dept, String phone, String email,
-			String join) {
+	
+	
+	
+	public User(String id, String pw, String name, String position, String dept, String phone, String email) {
 		super();
 		this.id = id;
 		this.pw = pw;
@@ -20,9 +24,25 @@ public class User {
 		this.dept = dept;
 		this.phone = phone;
 		this.email = email;
-		this.join = join;
 	}
-	
+
+
+
+	public User(String id, String pw, String name, String position, String dept, String phone, String email,
+			LocalDate hireDate, Vacation vacation) {
+		super();
+		this.id = id;
+		this.pw = pw;
+		this.name = name;
+		this.position = position;
+		this.dept = dept;
+		this.phone = phone;
+		this.email = email;
+		this.hireDate = hireDate;
+		this.vacation = vacation;
+	}
+
+
 	public String getId() {
 		return id;
 	}
@@ -65,11 +85,11 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getJoin() {
-		return join;
+	public LocalDate getHireDate() {
+		return hireDate;
 	}
-	public void setJoin(String join) {
-		this.join = join;
+	public void setHireDate(LocalDate hireDate) {
+		this.hireDate = hireDate;
 	}
 	
 	
