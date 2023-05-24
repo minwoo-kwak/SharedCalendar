@@ -54,27 +54,41 @@ public class CalendarSystem {
             System.out.println("해당일자에 일정이 없습니다.");
             System.out.println("1.일정 추가");
          }else{
-            System.out.println("1.일정 상세 보기 2.일정 추가 3.일정 수정 4.일정 삭제 5.뒤로가기");
+            System.out.println("1.일정 추가 2.일정 상세 보기  3.일정 수정 4.일정 삭제 5.뒤로가기");
          }
     	String menu = sc.nextLine();
         switch (menu) {
         case "1":
-        	scheduleDetail(selectedDay);
+        	addSchedule(selectedDay);
            break;
         case "2":
-        	addSchedule(selectedDay);
+        	scheduleDetail(selectedDay);
            break;
         case "3":
         	updateSchedule(selectedDay);
            break;   
         case "4":
-        	//removeSchedule(selectedDay);
+        	removeSchedule(selectedDay);
            break;
         case "5":
         	mc.show();
            break;
         }
     }
+	private void removeSchedule(int selectedDay) {
+		// TODO Auto-generated method stub
+		System.out.println("삭제할 일정의 일정번호를 입력하세요 > ");
+		int upNum = Integer.parseInt(sc.nextLine());
+		int i=0;
+		//mc.daySchedule(selectedDay);
+		for(Schedule sch : mc.getScheduleList()) {
+			
+			if(sch.getNo()==upNum) {
+				mc.removeSchedule(sch);
+			}
+		}
+		isSchedule(i);
+	}
 	private void scheduleDetail(int selectedDay) {
 		// TODO Auto-generated method stub
 		System.out.println("상세보기할 일정의 일정번호를 입력하세요 > ");
@@ -84,9 +98,17 @@ public class CalendarSystem {
 		for(Schedule sch : mc.getScheduleList()) {
 			
 			if(sch.getNo()==upNum) {
-				System.out.println("일정 번호\t일정이름\t일정 카테고리\t일정권한\t설명");
+				System.out.println("일정 번호\t일정 이름\t일정 작성자\t일정 카테고리\t일정 권한\t일정설명");
+				System.out.print(sch.getNo()+"\t");
+				System.out.print(sch.getScheduleName()+"\t");
+				System.out.print(sch.getWriter()+"\t");
+				System.out.print(sch.getCategory()+"\t");
+				System.out.print(sch.getAuthority()+"\t");
+				System.out.print(sch.getContent()+"\n");
+				i++;
 			}
 		}
+		isSchedule(i);
 	}
 	private void updateSchedule(int selectedDay) {
 		System.out.print("수정할 일정의 일정번호를 입력하세요 > ");
@@ -124,15 +146,7 @@ public class CalendarSystem {
 		        i++;
 			}
 		}
-		if(i==0) {
-			System.out.println("해당하는 일정이 없습니다");
-			mc.show();
-			menu();
-		}else {
-			System.out.println("수정 완료");
-			mc.show();
-			menu();
-		}
+		isSchedule(i);
 		
 		
 	}
@@ -160,10 +174,21 @@ public class CalendarSystem {
         }
         Schedule schedule = new Schedule(writer, scheduleName, Integer.parseInt(period), selectedDay, content, authority, alarm, category);
         
-        mc.add(schedule);
+        mc.addSchedule(schedule);
         System.out.println("일정 추가 완료");
         mc.show();
         menu();
+	}
+	public void isSchedule(int status) {
+		if(status==0) {
+			System.out.println("해당하는 일정이 없습니다");
+			mc.show();
+			menu();
+		}else {
+			System.out.println("완료");
+			mc.show();
+			menu();
+		}
 	}
     
 

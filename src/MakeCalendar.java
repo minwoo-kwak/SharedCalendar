@@ -91,6 +91,13 @@ public class MakeCalendar {
       return i;
    }
    
+   public void removeSchedule(Schedule schedule) {
+	   scheduleList.remove(schedule);
+   }
+   public void addSchedule(Schedule schedule) {
+	      scheduleList.add(schedule);
+	   }
+   
    
 
 public List<Schedule> getScheduleList() {
@@ -123,9 +130,7 @@ public int getSelectedDay() {
 public void setSelectedDay(int selectedDay) {
 	this.selectedDay = selectedDay;
 }
-public void add(Schedule schedule) {
-      scheduleList.add(schedule);
-   }
+
    
    
 
