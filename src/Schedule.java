@@ -95,6 +95,16 @@ public class Schedule {
    public void setCategory(String category) {
       this.category = category;
    }
+
+	public Alarm getAlarm() {
+		return alarm;
+	}
+	
+	public void setAlarm(Alarm alarm) {
+		this.alarm = alarm;
+	}
+
+
    
    
 }
