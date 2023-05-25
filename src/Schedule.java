@@ -13,21 +13,17 @@ static private int cnt=1;
    private int period;
    private int startDay;
    private String content;
-
    private boolean authority;//나만 보기(개인일정)
    private Alarm alarm;
    private String dept;//개인일정 뭐 그런거 부서별 
 
-   
    public Schedule() {
       no=cnt;
       cnt++;
    }
 
-
    public Schedule(String writer, String scheduleName, int period, int startDay, String content, boolean authority,
          Alarm alarm,String category) {
-
       super();
       no=cnt;
       cnt++;
@@ -38,9 +34,7 @@ static private int cnt=1;
       this.content = content;
       this.authority = authority; //true 나만보기, false 같이보기
       this.alarm = alarm;
-
       this.dept=category;
-
    }
    
 @Override
@@ -101,7 +95,6 @@ public void show() {
       this.content = content;
    }
 
-
 	public boolean getAuthority() {
 		return authority;
 	}
@@ -109,7 +102,6 @@ public void show() {
 	public void setAuthority(boolean authority) {
 		this.authority = authority;
 	}
-
 
 	public Alarm getAlarm() {
 		return alarm;
