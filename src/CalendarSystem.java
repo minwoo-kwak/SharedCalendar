@@ -1,7 +1,9 @@
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,16 +18,21 @@ public class CalendarSystem {
     FileSystem fs = new FileSystem();
     
     public void init() {
-       System.out.println("날짜를 입력하세요, 종료:q");
+//        String filePath = "C:\\Temp";
+//        String fileName="Schedule Data Base.txt";
+
+        System.out.println("날짜를 입력하세요, 종료:q");
         System.out.println("형식 : yyyy-MM");
         System.out.print("> ");
         String date = sc.nextLine();
         if(date.equals("q")) return;
         String[] dateArr = date.split("-");  
         mc = new MakeCalendar(Integer.parseInt(dateArr[0]),Integer.parseInt(dateArr[1]));
+//        mc.load(filePath, fileName);
         mc.show();
         menu();
     }
+    
     public void menu() {
        while(true) {
            System.out.println("1.하루 일정 보기 2.일정 검색 3.뒤로가기");
@@ -79,6 +86,7 @@ public class CalendarSystem {
        System.out.println("일정을 볼 날짜를 입력하세요");
         System.out.print("> ");
         int selectedDay = Integer.parseInt(sc.nextLine());
+        //역직렬화로 불러온다
         int status = mc.daySchedule(selectedDay);
         int[] info ={selectedDay,status};
         return info;
@@ -178,7 +186,9 @@ public class CalendarSystem {
       }
    
    private void addSchedule(int selectedDay) {
-	   	
+       // 파일 생성 및 쓰기
+       String filePath = "C:\\Temp";
+       String fileName="Schedule Data Base.txt";
         System.out.println("추가할 일정을 입력하세요");
         System.out.print("일정이름 > ");
         String scheduleName=sc.nextLine();
@@ -202,23 +212,26 @@ public class CalendarSystem {
         }
         
         Schedule schedule = new Schedule(writer, scheduleName, Integer.parseInt(period), selectedDay, content, authority, alarm, category);
-        mc.add(schedule);
+        mc.add(schedule,filePath,fileName);
         System.out.println("일정 추가 완료");
-        String str ="";
-        str+=schedule.getNo()+" ";
-        str+=schedule.getWriter()+" ";
-        str+=schedule.getScheduleName()+" ";
-        str+=schedule.getPeriod()+" ";
-        str+=schedule.getStartDay()+" ";
-        str+=schedule.getContent()+" ";
-        str+=schedule.getAuthority()+" ";
-        str+=schedule.getAlarm().getStatus()+" ";
-        str+=schedule.getCategory();
+        //String sb ="";
+//        StringBuilder sb= new StringBuilder();
+//        sb.append(schedule.getNo()+" ");
+//        sb.append(schedule.getScheduleName()+" ");
+//        sb.append(schedule.getPeriod()+" ");
+//        sb.append(schedule.getStartDay()+" ");
+//        sb.append(schedule.getContent()+" ");
+//        sb.append(schedule.getAuthority()+" ");
+//        sb.append(schedule.getAlarm().getStatus()+" ");
+//        sb.append(schedule.getCategory()+" ");
         
-        // 파일 생성 및 쓰기
-        String filePath = "C:\\Temp";
-        String fileName="Schedule Data Base.txt";
-        fs.writeFile(filePath,fileName,str);
+
+//        if(fs.writeFile(filePath,fileName,sb)) {
+//        	System.out.println("일정을 저장을 완료했습니다.");
+//        }else {
+//        	System.out.println("파일을 저장하는 도중에 오류가 발생했습니다.");
+//        }
+        
         mc.show();
         menu();
    }
@@ -259,58 +272,29 @@ public class CalendarSystem {
        String timeStamp = dateFormat.format(currentDate);
        String fileName = "report_" + timeStamp + ".txt"; // 파일 확장자 : txt
 
-
-
-//       // 파일 경로 입력 받기
-//       System.out.println("파일을 저장할 경로를 입력하세요:");
-//       String filePath = sc.nextLine();
        String filePath = "C:\\Temp";
 
-       // 파일 생성 및 쓰기
-       try {
-           File file = new File(filePath, fileName);
-           FileWriter fw = new FileWriter(file);
-           BufferedWriter bw = new BufferedWriter(fw);
-
-           // 지난 일정
-           bw.write("===== Past Schedules =====");
-           bw.newLine();
-           for (Schedule schedule : pastSchedules) {
-               bw.write("일정 번호: " + schedule.getNo());
-               bw.newLine();
-               bw.write("일정 이름: " + schedule.getScheduleName());
-               bw.newLine();
-               bw.write("작성자: " + schedule.getWriter());
-               bw.newLine();
-               // 나머지 일정 정보들도 필요한 경우 추가 작성
-               bw.newLine();
-           }
-
-           bw.newLine();
-
-           // 앞으로의 일정
-           bw.write("===== Upcoming Schedules =====");
-           bw.newLine();
-           String str="";
-           for (Schedule schedule : upcomingSchedules) {
-               bw.write("일정 번호: " + schedule.getNo());
-               bw.newLine();
-               bw.write("일정 이름: " + schedule.getScheduleName());
-               bw.newLine();
-               bw.write("작성자: " + schedule.getWriter());
-               bw.newLine();
-               // 나머지 일정 정보들도 필요한 경우 추가 작성
-               bw.newLine();
-           }
-
-           bw.close();
-           fw.close();
-
-           System.out.println("리포트가 성공적으로 생성되었습니다.");
-       } catch (IOException e) {
-           System.out.println("파일을 저장하는 도중에 오류가 발생했습니다.");
-           e.printStackTrace();
+       StringBuilder sb= new StringBuilder(); 
+    // 지난 일정
+       sb.append("===== Past Schedules =====\n");
+       for(Schedule schedule : pastSchedules) {
+    	   sb.append("일정 번호: " + schedule.getNo()+"\n");
+    	   sb.append("일정 이름: " + schedule.getScheduleName()+"\n");
+    	   sb.append("작성자: " + schedule.getWriter()+"\n\n\n");
        }
+       // 앞으로의 일정
+       sb.append("===== Upcoming Schedules =====");
+       for (Schedule schedule : upcomingSchedules) {
+    	   sb.append("일정 번호: " + schedule.getNo()+"\n");
+    	   sb.append("일정 이름: " + schedule.getScheduleName()+"\n");
+    	   sb.append("작성자: " + schedule.getWriter()+"\n\n\n");
+       }
+//       if(fs.writeFile(filePath,fileName,sb)) {
+//    	   System.out.println("리포트가 성공적으로 생성되었습니다.");
+//       }else {
+//       	System.out.println("파일을 저장하는 도중에 오류가 발생했습니다.");
+//       }
+
    }
     
 
