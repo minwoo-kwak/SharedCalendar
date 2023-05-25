@@ -296,4 +296,13 @@ public class UserManager { // 로그인, 유저정보 메소드 모음
 		UserManager.loginUser = loginUser;
 	}
 
+	public List<User> getUserList() {
+		return userList;
+	}
+
+	public void setUserList(List<User> userList) {
+		this.userList = userList;
+	}
+	
+
 }
