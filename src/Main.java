@@ -12,7 +12,7 @@ public class Main {
 //	   
 //	   
 
-	   User user = new User("1234","1234","john.doe","사원","개발팀","010-8747-7304","nbh7301@naver.com");
+	   //User user = new User("admin","1234","john.doe","사원","개발팀","010-8747-7304","nbh7301@naver.com");
 
 //	   
 //	  userDb.addUser(user);

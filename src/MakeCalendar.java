@@ -58,21 +58,42 @@ public class MakeCalendar {
    public int daySchedule(int selectedDay,User user) {
       System.out.println("번호\t일정이름\t일정 작성자\t일정설명");
       int i=0;
+      
       for(Schedule sc : scheduleList) {
-         
-         if(sc.getStartDay()==selectedDay) {
-        	 if(user.getDept().equals(sc.getAuthority()))
-            i++;
-            System.out.println(sc.getNo()+"\t"+sc.getScheduleName()+"\t"+sc.getWriter()+"\t"+sc.getContent());
-         }
+    	  if(selectedDay==0) {//admin전용
+    		  sc.show();
+    		  i++;
+    	  }else {
+    	         if(sc.getStartDay()==selectedDay) {//선탠된 날짜
+    	        	 if(sc.getDept().equals(user.getDept())) {//부서별
+    		        	 if(sc.getAuthority()==true) {//스케줄이 만약 나만 보기라면 작성자를 확인해서 같으면 보여줌
+    		        		 if(sc.getWriter().equals(user.getName())){
+    		        			 i++;
+    		        			 sc.show();
+    		        		 } 
+    		        	 }else {
+    		        		 i++;
+    		        		 sc.show();
+    		        	 }
+    	        	 }
+    	         }
+    	  }
+
       }
       return i;
    }
+   
    public void update(Schedule sch,String str,String filePath,String fileName) {
 	   String[] arr = str.split(",");
 	   sch.setScheduleName(arr[0]);
 	   sch.setWriter(arr[1]); 
-	   sch.setAuthority(arr[2]);
+	   boolean aut;
+	   if(arr[2].equals("y")) {
+           aut=true;
+        }else {
+        	aut=false;
+        }
+	   sch.setAuthority(aut);
 	   sch.setContent(arr[3]);
 	   sch.setPeriod(Integer.parseInt(arr[4]));
 	   if(arr[5].equals("y")) {
@@ -137,7 +158,7 @@ public class MakeCalendar {
 
 		   for(Schedule sch : scheduleList) {
 			   if(sch.getNo()==no) {
-				   System.out.println(sch.getNo()+"\t"+sch.getScheduleName()+"\t"+sch.getWriter()+"\t"+sch.getContent());
+				   sch.show();
 				   cnt++;
 				   //return sch;
 			   }
@@ -145,17 +166,17 @@ public class MakeCalendar {
 
 	} catch (Exception e) {
 		// TODO: handle exception
-		//2작성자 3권한
+		//2작성자 3분류
 	   for(Schedule sch : scheduleList) {
 		   if(menu.equals("2")) {
 			   if(sch.getWriter().equals(str)) {
-				   System.out.println(sch.getNo()+"\t"+sch.getScheduleName()+"\t"+sch.getWriter()+"\t"+sch.getContent());
+				   sch.show();
 				   cnt++;
 				   //return sch;
 			   }
 		   }else if(menu.equals("3")) {
-			   if(sch.getAuthority().equals(str)) {
-				   System.out.println(sch.getNo()+"\t"+sch.getScheduleName()+"\t"+sch.getWriter()+"\t"+sch.getContent());
+			   if(sch.getDept().equals(str)) {
+				   sch.show();
 				   cnt++;
 				   //return sch;
 			   }

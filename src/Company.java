@@ -2,6 +2,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -77,8 +79,9 @@ public class Company {
       String dept = sc.next();
       String phone = sc.next();
       String email = sc.next();
+      LocalDate hireDate = LocalDate.parse(sc.next());
       
-      new User(id, pw, name, position, dept, phone, email);
+      new User(id, pw, name, position, dept, phone, email, hireDate);
       file  = new File("C:\\user\\userDB.txt");
        try {
          FileWriter filewriter = new FileWriter(file, true);
@@ -107,9 +110,6 @@ public class Company {
       } catch (Exception e) {
          // TODO: handle exception
       }
-      
-      
-      
       userCount++;
    }
    //텍스트파일에서 유저목록 객체로생성
@@ -125,14 +125,15 @@ public class Company {
             System.out.println(line);
             String arr[] = line.split("\t");
             String id = arr[0];
-            String pw = arr[0];
-            String name = arr[0];
-            String position = arr[0];
-            String dept = arr[0];
-            String phone = arr[0];
-            String email = arr[0];
-            
-            userList.add(new User(id, pw, name, position, dept, phone, email));
+            String pw = arr[1];
+            String name = arr[2];
+            String position = arr[3];
+            String dept = arr[4];
+            String phone = arr[5];
+            String email = arr[6];
+            LocalDate hireDate = LocalDate.parse(arr[7]);
+            userCount++;
+            userList.add(new User(id, pw, name, position, dept, phone, email, hireDate));
          }
 //            if(arr[0].equals(id) && pw.equals(arr[1])) {
 //               System.out.println("로그인성공");

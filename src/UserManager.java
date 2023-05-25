@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -15,22 +17,44 @@ public class UserManager { //로그인, 유저정보 메소드 모음
    File file  = new File("C:\\user\\userDB.txt");
    public void init() { //초기화면
         System.out.print(
-                "[1] Login [0]Exit \n" +
+                "[1] 일반사원 로그인   [2]관리자 로그인   [0]Exit \n" +
                 ">> ");
         String menu = sc.nextLine();
 
-        if (menu.equals("1")) login();
+        if (menu.equals("1")) userLogin();
         else if (menu.equals("0")) System.exit(0);
     }
    
-   
-   public void login() { // 로그인메소드
+   public void adminLogin() {
+      while(true) {
+            System.out.println("====관리자 로그인====");
+            System.out.print("아이디를 입력하세요: ");
+            id = sc.nextLine();
+            System.out.print("비밀번호를 입력하세요: ");
+            pw = sc.nextLine();
+            
+            if(findById(id) == null) {
+               System.out.println("존재하지 않는 아이디입니다.");
+               continue;
+            }else {
+               if(findById(id).getPw().equals(pw)) {
+                  loginUser = findById(id);
+                  System.out.println(loginUser.getName()+ "님 환영합니다.");
+                  myInfo();
+                  break;
+               }
+               System.out.println("로그인 실패 다시 시도하세요!");
+               continue;
+            }
+         }
+   }
+   public void userLogin() { // 일반사원 로그인메소드
       //userList.add(new User("1234","1234","나병희","사원","개발팀","010-8747-7304","nbh7301@naver.com"));
      // userList.add(new User("1111","1111","너병희","주임","인사팀","010-8747-7304","nbh7301@naver.com"));
      
-      int pass = 0;
+      //int pass = 0;
       while(true) {
-         System.out.println("로그인");
+         System.out.println("====일반 유저 로그인====");
          System.out.print("아이디를 입력하세요: ");
          id = sc.nextLine();
          System.out.print("비밀번호를 입력하세요: ");
@@ -97,6 +121,7 @@ public class UserManager { //로그인, 유저정보 메소드 모음
    
    public void myInfo() { //로그인한 후 화면
       System.out.println();
+      boolean loop = true;
       while(true) {
          System.out.print("1. 내정보보기 2. 내정보수정 3. 로그아웃 4. 일정달력보기");
          int select = sc.nextInt();
@@ -114,41 +139,118 @@ public class UserManager { //로그인, 유저정보 메소드 모음
             break;
          case 2:
             System.out.println("내정보수정");
-            System.out.println("1. 직책 2. 부서 3. 휴대폰번호 4. 이메일: ");
-            int key = sc.nextInt();
-            switch (key) {
-            case 1:
-               System.out.print("어떤 직책으로 변경하시겠습니까?  ");
-               String position = sc.next();
-               loginUser.setPosition(position);
-               System.out.println("바뀐 직책은 " + loginUser.getPosition());
-               break;
-            case 2:
-               System.out.print("어떤 부서로 이동하시겠습니까?  ");
-               String dept = sc.next();
-               loginUser.setDept(dept);
-               System.out.println("바뀐 부서는 " + loginUser.getDept());
-               break;
-            case 3:
-               System.out.print("어떤 번호로 변경하시겠습니까?  ");
-               String phone = sc.next();
-               loginUser.setPhone(phone);
-               System.out.println("바뀐 휴대폰번호는 " + loginUser.getPhone());
-               break;
-            case 4:
-               System.out.print("어떤 이메일로 변경하시겠습니까?  ");
-               String email = sc.next();
-               loginUser.setEmail(email);
-               System.out.println("바뀐 이메일은 " + loginUser.getEmail());
-               break;
+            while(true) {
+                System.out.println("1. 직책 2. 부서 3. 휴대폰번호 4. 이메일 5. 뒤로가기" );
+                 int key = sc.nextInt();
+                 switch (key) {
+                 case 1:
+                    System.out.print("어떤 직책으로 변경하시겠습니까?  ");
+                    String position = sc.next();
+                    loginUser.setPosition(position);
+//                    FileSystem.save("C:\\user", "userDB", userList);
+                    try {
+                       file  = new File("C:\\user\\userDB.txt");
+                        FileWriter fw = new FileWriter(file,false);
+                       
+                        for(int i=0; i<userList.size(); i++) {
+                           fw.append(userList.get(i).getId() + "\t");
+                           fw.append(userList.get(i).getPw() + "\t");
+                           fw.append(userList.get(i).getName()+ "\t");
+                           fw.append(userList.get(i).getPosition()+ "\t");
+                           fw.append(userList.get(i).getDept()+ "\t");
+                           fw.append(userList.get(i).getPhone()+ "\t");
+                           fw.append(userList.get(i).getEmail()+ "\r");
+                        }
+                        fw.flush();
+                        } catch (Exception e) {
+                    // TODO: handle exception
+                 }
+                    
+                    System.out.println("바뀐 직책은 " + loginUser.getPosition());
+                    
+                    break;
+                 case 2:
+                    System.out.print("어떤 부서로 이동하시겠습니까?  ");
+                    String dept = sc.next();
+                    loginUser.setDept(dept);
+                    try {
+                       file  = new File("C:\\user\\userDB.txt");
+                        FileWriter fw = new FileWriter(file,false);
+                       
+                        for(int i=0; i<userList.size(); i++) {
+                           fw.append(userList.get(i).getId() + "\t");
+                           fw.append(userList.get(i).getPw() + "\t");
+                           fw.append(userList.get(i).getName()+ "\t");
+                           fw.append(userList.get(i).getPosition()+ "\t");
+                           fw.append(userList.get(i).getDept()+ "\t");
+                           fw.append(userList.get(i).getPhone()+ "\t");
+                           fw.append(userList.get(i).getEmail()+ "\r");
+                        }
+                        fw.flush();
+                        } catch (Exception e) {
+                    // TODO: handle exception
+                 }
+                    System.out.println("바뀐 부서는 " + loginUser.getDept());
+                    break;
+                 case 3:
+                    System.out.print("어떤 번호로 변경하시겠습니까?  ");
+                    String phone = sc.next();
+                    loginUser.setPhone(phone);
+                    try {
+                       file  = new File("C:\\user\\userDB.txt");
+                        FileWriter fw = new FileWriter(file,false);
+                       
+                        for(int i=0; i<userList.size(); i++) {
+                           fw.append(userList.get(i).getId() + "\t");
+                           fw.append(userList.get(i).getPw() + "\t");
+                           fw.append(userList.get(i).getName()+ "\t");
+                           fw.append(userList.get(i).getPosition()+ "\t");
+                           fw.append(userList.get(i).getDept()+ "\t");
+                           fw.append(userList.get(i).getPhone()+ "\t");
+                           fw.append(userList.get(i).getEmail()+ "\r");
+                        }
+                        fw.flush();
+                        } catch (Exception e) {
+                    // TODO: handle exception
+                 }
+                    System.out.println("바뀐 휴대폰번호는 " + loginUser.getPhone());
+                    break;
+                 case 4:
+                    System.out.print("어떤 이메일로 변경하시겠습니까?  ");
+                    String email = sc.next();
+                    loginUser.setEmail(email);
+                    try {
+                       file  = new File("C:\\user\\userDB.txt");
+                        FileWriter fw = new FileWriter(file,false);
+                       
+                        for(int i=0; i<userList.size(); i++) {
+                           fw.append(userList.get(i).getId() + "\t");
+                           fw.append(userList.get(i).getPw() + "\t");
+                           fw.append(userList.get(i).getName()+ "\t");
+                           fw.append(userList.get(i).getPosition()+ "\t");
+                           fw.append(userList.get(i).getDept()+ "\t");
+                           fw.append(userList.get(i).getPhone()+ "\t");
+                           fw.append(userList.get(i).getEmail()+ "\r");
+                        }
+                        fw.flush();
+                        } catch (Exception e) {
+                    // TODO: handle exception
+                 }
+                    System.out.println("바뀐 이메일은 " + loginUser.getEmail());
+                    break;
+                 case 5:
+                   myInfo();
 
-            default:
-               break;
+                 default:
+                    break;
+                 }
+               
             }
+           
          case 3:
             System.out.println("로그아웃");
             logout();
-            login();
+            init();
             
             //System.exit(0);
          case 4:
@@ -162,10 +264,14 @@ public class UserManager { //로그인, 유저정보 메소드 모음
          }
       }
    }
+   public void changeUserInfo() {
+      
+   }
     public void logout() { //로그아웃
            if (loginUser != null) {
               loginUser = null;
               System.out.println("로그아웃 되었습니다.  \n");
+              init();
            }
        }
    
