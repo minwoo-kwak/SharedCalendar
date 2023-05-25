@@ -11,7 +11,9 @@ public class Main {
 //	   UserDatabase userDb = new UserDatabase();
 //	   
 //	   
-//	   User user = new User("1234","1234","john.doe","사원","개발팀","010-8747-7304","nbh7301@naver.com");
+
+	   User user = new User("1234","1234","john.doe","사원","개발팀","010-8747-7304","nbh7301@naver.com");
+
 //	   
 //	  userDb.addUser(user);
 //       
@@ -27,9 +29,11 @@ public class Main {
 //           System.out.println("유저를 찾을 수 없습니다.");
 //       }
       // TODO Auto-generated method stub
-//	   UserManager um = new UserManager();
-//		um.init();
-	   CalendarSystem sys = new CalendarSystem();
-	   sys.init();
+	   Company cp = new Company();
+	   UserManager um = new UserManager();
+	   cp.insertUser();
+	   um.init();
+//	   CalendarSystem sys = new CalendarSystem();
+//	   sys.init();
    }
 }
