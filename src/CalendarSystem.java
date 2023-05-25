@@ -92,7 +92,9 @@ public class CalendarSystem {
     	System.out.println("1.일정 상세 보기 2.뒤로가기");
     	String menu = sc.nextLine();
     	switch (menu) {
+
 		case "1":
+
 			
 			break;
 
@@ -266,7 +268,7 @@ public class CalendarSystem {
       }
    }
    
-   
+
     
 
 }
