@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.Date;
 
-public class Alarm {
+public class Alarm implements Serializable{
    private boolean status;
    private Date time;
    

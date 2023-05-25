@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.Date;
 
-public class Schedule {
+public class Schedule implements Serializable{
 
    static private int cnt=1;
    

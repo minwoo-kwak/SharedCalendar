@@ -1,9 +1,14 @@
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+
 public class MakeCalendar {
-   private List<Schedule> scheduleList;
+   private static List<Schedule> scheduleList;
    private int defaultCalendar;
    private int year;
    private int month;
@@ -95,9 +100,29 @@ public class MakeCalendar {
 	   scheduleList.remove(schedule);
    }
    
-   public void add(Schedule schedule) {
+   public void add(Schedule schedule,String filePath,String fileName) {
 	      scheduleList.add(schedule);
+	      //FileSystem.save(filePath,fileName,schedule);
 	   }
+//	public void load(String filePath,String fileName) {
+//		ObjectInputStream ois = null;
+//		try {
+//			ois = new ObjectInputStream(new FileInputStream(filePath+"\\"+fileName));
+//			
+//			scheduleList = (List<Schedule>)ois.readObject();
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//		}finally {
+//			try {
+//				ois.close();
+//			} catch (Exception e2) {
+//				// TODO: handle exception
+//				e2.printStackTrace();
+//			}
+//		}
+//	}
+
    
 //   public Schedule search(int no) {
 //	   for(Schedule sch : scheduleList) {
