@@ -233,6 +233,7 @@ public class CalendarSystem {
                pastSchedules.add(schedule);
            } else {
                upcomingSchedules.add(schedule);
+               System.out.println();
            }
        }
 

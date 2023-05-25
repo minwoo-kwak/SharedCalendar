@@ -115,7 +115,7 @@ public class MakeCalendar {
 			   if(sch.getNo()==no) {
 				   return sch;
 			   }
-		   }
+		   } System.out.println();
 		   //1작성자 2카테고리
 	   }else {
 		   String writer = obj+"";
