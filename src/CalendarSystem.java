@@ -1,21 +1,18 @@
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Calendar;
 
 public class CalendarSystem {
    
     Scanner sc = new Scanner(System.in);
     MakeCalendar mc;
     FileSystem fs = new FileSystem();
+    ReportSystem rs = new ReportSystem();
     
     public void init() {
         String filePath = "C:\\Temp";
@@ -95,7 +92,7 @@ public class CalendarSystem {
     	System.out.println("1.일정 상세 보기 2.뒤로가기");
     	String menu = sc.nextLine();
     	switch (menu) {
-		case value:
+		case "1":
 			
 			break;
 
@@ -139,7 +136,7 @@ public class CalendarSystem {
            mc.show();
            break;
         case "6":
-        	makeReport();
+        	rs.makeReport(mc);
         }
     }
    private void removeSchedule(int selectedDay) {
@@ -269,54 +266,7 @@ public class CalendarSystem {
       }
    }
    
-   // 리포트 생성
-   public void makeReport() {
-       List<Schedule> pastSchedules = new ArrayList<>();
-       List<Schedule> upcomingSchedules = new ArrayList<>();
-
-       Date currentDate = new Date(); // 현재 날짜 가져오기
-       Calendar calendar = Calendar.getInstance();
-       calendar.setTime(currentDate);
-
-       // 현재 날짜를 기준으로 지난 일정과 앞으로의 일정을 분류
-       for (Schedule schedule : mc.getScheduleList()) {
-           if (schedule.getStartDay() < calendar.get(Calendar.DAY_OF_MONTH)) {
-               pastSchedules.add(schedule);
-           } else {
-               upcomingSchedules.add(schedule);
-               System.out.println();
-           }
-       }
-
-       // 분류된 일정들을 리포트로 작성하여 파일로 저장
-       SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-       String timeStamp = dateFormat.format(currentDate);
-       String fileName = "report_" + timeStamp + ".txt"; // 파일 확장자 : txt
-
-       String filePath = "C:\\Temp";
-
-       StringBuilder sb= new StringBuilder(); 
-    // 지난 일정
-       sb.append("===== Past Schedules =====\n");
-       for(Schedule schedule : pastSchedules) {
-    	   sb.append("일정 번호: " + schedule.getNo()+"\n");
-    	   sb.append("일정 이름: " + schedule.getScheduleName()+"\n");
-    	   sb.append("작성자: " + schedule.getWriter()+"\n\n\n");
-       }
-       // 앞으로의 일정
-       sb.append("===== Upcoming Schedules =====");
-       for (Schedule schedule : upcomingSchedules) {
-    	   sb.append("일정 번호: " + schedule.getNo()+"\n");
-    	   sb.append("일정 이름: " + schedule.getScheduleName()+"\n");
-    	   sb.append("작성자: " + schedule.getWriter()+"\n\n\n");
-       }
-       if(fs.writeFile(filePath,fileName,sb)) {
-    	   System.out.println("리포트가 성공적으로 생성되었습니다.");
-       }else {
-       	System.out.println("파일을 저장하는 도중에 오류가 발생했습니다.");
-       }
-
-   }
+   
     
 
 }
