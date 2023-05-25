@@ -153,7 +153,7 @@ public class UserManager { //로그인, 유저정보 메소드 모음
             //System.exit(0);
          case 4:
             CalendarSystem sys = new CalendarSystem();
-             sys.init();
+             sys.init(loginUser);
              break;
             
 
