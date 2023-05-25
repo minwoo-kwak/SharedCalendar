@@ -9,9 +9,9 @@ public class Main {
    public static void main(String[] args) {
 	   
       // TODO Auto-generated method stub
-	   UserManager um = new UserManager();
-		um.init();
-//	   CalendarSystem sys = new CalendarSystem();
-//	   sys.init();
+//	   UserManager um = new UserManager();
+//		um.init();
+	   CalendarSystem sys = new CalendarSystem();
+	   sys.init();
    }
 }

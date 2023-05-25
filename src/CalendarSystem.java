@@ -13,6 +13,7 @@ public class CalendarSystem {
    
     Scanner sc = new Scanner(System.in);
     MakeCalendar mc;
+    FileSystem fs = new FileSystem();
     
     public void init() {
        System.out.println("날짜를 입력하세요, 종료:q");
@@ -177,6 +178,7 @@ public class CalendarSystem {
       }
    
    private void addSchedule(int selectedDay) {
+	   	
         System.out.println("추가할 일정을 입력하세요");
         System.out.print("일정이름 > ");
         String scheduleName=sc.nextLine();
@@ -198,10 +200,25 @@ public class CalendarSystem {
         }else {
            alarm.setStatus(false);
         }
-        Schedule schedule = new Schedule(writer, scheduleName, Integer.parseInt(period), selectedDay, content, authority, alarm, category);
         
+        Schedule schedule = new Schedule(writer, scheduleName, Integer.parseInt(period), selectedDay, content, authority, alarm, category);
         mc.add(schedule);
         System.out.println("일정 추가 완료");
+        String str ="";
+        str+=schedule.getNo()+" ";
+        str+=schedule.getWriter()+" ";
+        str+=schedule.getScheduleName()+" ";
+        str+=schedule.getPeriod()+" ";
+        str+=schedule.getStartDay()+" ";
+        str+=schedule.getContent()+" ";
+        str+=schedule.getAuthority()+" ";
+        str+=schedule.getAlarm().getStatus()+" ";
+        str+=schedule.getCategory();
+        
+        // 파일 생성 및 쓰기
+        String filePath = "C:\\Temp";
+        String fileName="Schedule Data Base.txt";
+        fs.writeFile(filePath,fileName,str);
         mc.show();
         menu();
    }
@@ -274,6 +291,7 @@ public class CalendarSystem {
            // 앞으로의 일정
            bw.write("===== Upcoming Schedules =====");
            bw.newLine();
+           String str="";
            for (Schedule schedule : upcomingSchedules) {
                bw.write("일정 번호: " + schedule.getNo());
                bw.newLine();
