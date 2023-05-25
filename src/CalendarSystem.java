@@ -16,10 +16,11 @@ public class CalendarSystem {
     Scanner sc = new Scanner(System.in);
     MakeCalendar mc;
     FileSystem fs = new FileSystem();
+    String filePath = "C:\\Temp";
+    String fileName="Schedule Data Base.txt";
     
     public void init() {
-        String filePath = "C:\\Temp";
-        String fileName="Schedule Data Base.txt";
+
 
         System.out.println("날짜를 입력하세요, 종료:q");
         System.out.println("형식 : yyyy-MM");
@@ -65,43 +66,51 @@ public class CalendarSystem {
        System.out.print("> ");
        String menu = sc.nextLine();
        String obj;
-       int cnt;
+       
        switch (menu) {
       case "1":
          System.out.print("검색할 일정의 일정번호를 입력하세요 > ");
          obj = sc.nextLine();
-         if(mc.search(obj,0)==0) {
-        	 System.out.println("해당하는 일정이 없습니다.");
-        	 mc.show();
-        	 menu();
-         }else {
-        	 System.out.println("1.일정 상세 보기 2.뒤로가기");
-         }
+         //mc.search(obj, 0);
+         searchAfter(obj,menu);
          break;
       case "2":
     	  System.out.print("검색할 일정의 작성자를 입력하세요 > ");
           obj = sc.nextLine();
-    	  mc.search(obj,1);
+          //mc.search(obj, 1);
+          searchAfter(obj,menu);
          break;
       case "3":
     	  System.out.print("검색할 일정의 카테고리를 입력하세요 > ");
           obj = sc.nextLine();
-    	  mc.search(obj,2);
+          //mc.search(obj, 2);
+          searchAfter(obj,menu);
          break;
       }
       
    }
-    public void searchAfter() {
-    	System.out.println("1.일정 상세 보기 2.뒤로가기");
-    	String menu = sc.nextLine();
-    	switch (menu) {
-		case value:
-			
-			break;
+    public void searchAfter(String str,String menu) {
+        if(mc.search(str,menu)==0) {
+          	 System.out.println("해당하는 일정이 없습니다.");
+           	 mc.show();
+           	 menu();
+        }else {
+        	System.out.println("1.일정 상세 보기 2.뒤로가기");
+        	String afterMenu = sc.nextLine();
+        	switch (afterMenu) {
+    		case "1":
+    			scheduleDetail();
+    			break;
+    		case "2":
+    			mc.show();
+    			break;
+    		default:
+    			searchAfter(str,menu);
+    			break;
+    		}
+        }
 
-		default:
-			break;
-		}
+
     }
    public int[] showList() {
        System.out.println("일정을 볼 날짜를 입력하세요");
@@ -127,13 +136,13 @@ public class CalendarSystem {
            addSchedule(selectedDay);
            break;
         case "2":
-           scheduleDetail(selectedDay);
+           scheduleDetail();
            break;
         case "3":
-           updateSchedule(selectedDay);
+           updateSchedule();
            break;   
         case "4":
-           removeSchedule(selectedDay);
+           removeSchedule();
            break;
         case "5":
            mc.show();
@@ -142,18 +151,18 @@ public class CalendarSystem {
         	makeReport();
         }
     }
-   private void removeSchedule(int selectedDay) {
+   private void removeSchedule() {
       // TODO Auto-generated method stub
       System.out.println("삭제할 일정의 일정번호를 입력하세요 > ");
       int upNum = Integer.parseInt(sc.nextLine());
       Schedule sch= mc.search(upNum);
       if(sch!=null) {
          
-         mc.remove(sch);
+         mc.remove(sch,filePath,fileName);
          }
       isSchedule(sch);
       }
-   private void scheduleDetail(int selectedDay) {
+   private void scheduleDetail() {
       // TODO Auto-generated method stub
       System.out.println("상세보기할 일정의 일정번호를 입력하세요 > ");
       int upNum = Integer.parseInt(sc.nextLine());
@@ -171,45 +180,37 @@ public class CalendarSystem {
       }
       
    
-   private void updateSchedule(int selectedDay) {
+   private void updateSchedule() {
       System.out.print("수정할 일정의 일정번호를 입력하세요 > ");
       int upNum = Integer.parseInt(sc.nextLine());
       Schedule sch= mc.search(upNum);
+      String str="";
       if(sch!=null) {
-              System.out.println("수정할 일정을 입력하세요");
-              System.out.print("일정이름 > ");
-              sch.setScheduleName(sc.nextLine());
-              System.out.print("작성자 > ");
-              sch.setWriter(sc.nextLine());        
-              System.out.print("일정권한 > ");
-              sch.setAuthority(sc.nextLine());             
-              System.out.print("설명 > ");
-              sch.setContent(sc.nextLine());              
-              System.out.print("기간 > ");
-              sch.setPeriod(Integer.parseInt(sc.nextLine()));              
-              System.out.print("알람여부 y or n > ");
-              //Alarm alarm = new Alarm();
-              if(sc.nextLine().equals("y")) {
-                 sch.getAlarm().setStatus(true);
-              }else {
-                 sch.getAlarm().setStatus(false);
-              }
-              //sch.setAlarm(alarm);
-              //Alarm alarm = sch.ge
-              String al=sc.nextLine();
-              System.out.print("카테고리 > ");
-              sch.setCategory(sc.nextLine());
-              //String category=sc.nextLine();
-              //Alarm alarm = new Alarm();
-              
+          System.out.println("수정할 일정을 입력하세요");
+          System.out.print("일정이름 > ");
+          str+=sc.nextLine()+",";
+          System.out.print("작성자 > ");
+          str+=sc.nextLine()+",";
+          System.out.print("일정권한 > ");
+          str+=sc.nextLine()+",";
+          System.out.print("설명 > ");
+          str+=sc.nextLine()+",";
+          System.out.print("기간 > ");
+          str+=sc.nextLine()+",";
+          System.out.print("알람여부 y or n > ");
+          str+=sc.nextLine()+",";
+          System.out.print("카테고리 > ");
+          str+=sc.nextLine();
+          mc.update(sch,str,filePath,fileName);
          }
       isSchedule(sch);
+      mc.daySchedule(sch.getStartDay());
       }
    
    private void addSchedule(int selectedDay) {
        // 파일 생성 및 쓰기
-       String filePath = "C:\\Temp";
-       String fileName="Schedule Data Base.txt";
+//       String filePath = "C:\\Temp";
+//       String fileName="Schedule Data Base.txt";
         System.out.println("추가할 일정을 입력하세요");
         System.out.print("일정이름 > ");
         String scheduleName=sc.nextLine();
