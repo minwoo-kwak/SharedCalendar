@@ -46,29 +46,27 @@ public class FileSystem {
 			}
 		}  
 	}
-//	public static List<Schedule> load(String filePath,String fileName) {
-//		ObjectInputStream ois = null;
-//		
-//			
-//		
-//		try {
-//			ois = new ObjectInputStream(new FileInputStream(filePath+"\\"+fileName));
-//			
-//			return (List<Schedule>)ois.readObject();
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			e.printStackTrace();
-//		}finally {
-//			try {
-//				ois.close();
-//			} catch (Exception e2) {
-//				// TODO: handle exception
-//				e2.printStackTrace();
-//			}
-//		}
-//		
-//
-//
-//	}
+
+	
+    public static Object load(String filePath, String fileName) {
+        ObjectInputStream ois = null;
+        Object obj = null;
+        try {
+            ois = new ObjectInputStream(new FileInputStream(filePath + "\\" + fileName));
+            obj = ois.readObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (ois != null) {
+                    ois.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+        return obj;
+    }
+
 
 }

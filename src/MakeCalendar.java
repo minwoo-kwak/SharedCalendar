@@ -27,6 +27,7 @@ public class MakeCalendar {
       this.year = year;
       this.month = month;
       scheduleList = new LinkedList<Schedule>();
+
    }
 
    public void show() {
@@ -88,9 +89,11 @@ public class MakeCalendar {
    }
    
    public void add(Schedule schedule,String filePath,String fileName) {
+
 	   if(scheduleList!=null) {
 		   schedule.setNo(scheduleList.size()+1);
 	   }
+
       scheduleList.add(schedule);
       FileSystem.save(filePath,fileName,scheduleList);
    	}
@@ -122,6 +125,7 @@ public class MakeCalendar {
 	   } 
 	   return null;
    }
+
    public int search(String str,String menu) {
 	   System.out.println("번호\t일정이름\t일정 작성자\t일정설명");
 	   int cnt=0;
@@ -129,6 +133,7 @@ public class MakeCalendar {
 	   //if(str instanceof Integer) {
 	   try {
 		int no = Integer.parseInt(str);
+
 		   for(Schedule sch : scheduleList) {
 			   if(sch.getNo()==no) {
 				   System.out.println(sch.getNo()+"\t"+sch.getScheduleName()+"\t"+sch.getWriter()+"\t"+sch.getContent());
@@ -136,6 +141,7 @@ public class MakeCalendar {
 				   //return sch;
 			   }
 		   } System.out.println();
+
 	} catch (Exception e) {
 		// TODO: handle exception
 		//2작성자 3카테고리
@@ -157,6 +163,7 @@ public class MakeCalendar {
 	}
 	return cnt;
 }
+
 
    
    
