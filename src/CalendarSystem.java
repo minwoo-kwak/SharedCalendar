@@ -18,8 +18,8 @@ public class CalendarSystem {
     FileSystem fs = new FileSystem();
     
     public void init() {
-//        String filePath = "C:\\Temp";
-//        String fileName="Schedule Data Base.txt";
+        String filePath = "C:\\Temp";
+        String fileName="Schedule Data Base.txt";
 
         System.out.println("날짜를 입력하세요, 종료:q");
         System.out.println("형식 : yyyy-MM");
@@ -28,7 +28,9 @@ public class CalendarSystem {
         if(date.equals("q")) return;
         String[] dateArr = date.split("-");  
         mc = new MakeCalendar(Integer.parseInt(dateArr[0]),Integer.parseInt(dateArr[1]));
-//        mc.load(filePath, fileName);
+        
+        mc.load(filePath, fileName);
+        
         mc.show();
         menu();
     }
@@ -63,11 +65,18 @@ public class CalendarSystem {
        System.out.print("> ");
        String menu = sc.nextLine();
        String obj;
+       int cnt;
        switch (menu) {
       case "1":
          System.out.print("검색할 일정의 일정번호를 입력하세요 > ");
          obj = sc.nextLine();
-         mc.search(obj,0);
+         if(mc.search(obj,0)==0) {
+        	 System.out.println("해당하는 일정이 없습니다.");
+        	 mc.show();
+        	 menu();
+         }else {
+        	 System.out.println("1.일정 상세 보기 2.뒤로가기");
+         }
          break;
       case "2":
     	  System.out.print("검색할 일정의 작성자를 입력하세요 > ");
@@ -82,6 +91,18 @@ public class CalendarSystem {
       }
       
    }
+    public void searchAfter() {
+    	System.out.println("1.일정 상세 보기 2.뒤로가기");
+    	String menu = sc.nextLine();
+    	switch (menu) {
+		case value:
+			
+			break;
+
+		default:
+			break;
+		}
+    }
    public int[] showList() {
        System.out.println("일정을 볼 날짜를 입력하세요");
         System.out.print("> ");
@@ -125,7 +146,7 @@ public class CalendarSystem {
       // TODO Auto-generated method stub
       System.out.println("삭제할 일정의 일정번호를 입력하세요 > ");
       int upNum = Integer.parseInt(sc.nextLine());
-      Schedule sch= mc.search(upNum,0);
+      Schedule sch= mc.search(upNum);
       if(sch!=null) {
          
          mc.remove(sch);
@@ -136,7 +157,7 @@ public class CalendarSystem {
       // TODO Auto-generated method stub
       System.out.println("상세보기할 일정의 일정번호를 입력하세요 > ");
       int upNum = Integer.parseInt(sc.nextLine());
-      Schedule sch= mc.search(upNum,0);
+      Schedule sch= mc.search(upNum);
       if(sch!=null) {
             System.out.println("일정 번호\t일정 이름\t일정 작성자\t일정 카테고리\t일정 권한\t일정설명");
             System.out.print(sch.getNo()+"\t");
@@ -153,7 +174,7 @@ public class CalendarSystem {
    private void updateSchedule(int selectedDay) {
       System.out.print("수정할 일정의 일정번호를 입력하세요 > ");
       int upNum = Integer.parseInt(sc.nextLine());
-      Schedule sch= mc.search(upNum,0);
+      Schedule sch= mc.search(upNum);
       if(sch!=null) {
               System.out.println("수정할 일정을 입력하세요");
               System.out.print("일정이름 > ");
@@ -289,11 +310,11 @@ public class CalendarSystem {
     	   sb.append("일정 이름: " + schedule.getScheduleName()+"\n");
     	   sb.append("작성자: " + schedule.getWriter()+"\n\n\n");
        }
-//       if(fs.writeFile(filePath,fileName,sb)) {
-//    	   System.out.println("리포트가 성공적으로 생성되었습니다.");
-//       }else {
-//       	System.out.println("파일을 저장하는 도중에 오류가 발생했습니다.");
-//       }
+       if(fs.writeFile(filePath,fileName,sb)) {
+    	   System.out.println("리포트가 성공적으로 생성되었습니다.");
+       }else {
+       	System.out.println("파일을 저장하는 도중에 오류가 발생했습니다.");
+       }
 
    }
     

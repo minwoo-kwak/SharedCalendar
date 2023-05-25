@@ -4,11 +4,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 
 
 public class MakeCalendar {
-   private static List<Schedule> scheduleList;
+//   public static 
+	private List<Schedule> scheduleList;
    private int defaultCalendar;
    private int year;
    private int month;
@@ -24,8 +26,7 @@ public class MakeCalendar {
       this.defaultCalendar = 1;
       this.year = year;
       this.month = month;
-      scheduleList = new ArrayList<Schedule>();
-
+      scheduleList = new LinkedList<Schedule>();
 //      Calendar gc = Calendar.getInstance();
 //      int n = gc.getActualMaximum(Calendar.DATE);
 //
@@ -101,62 +102,70 @@ public class MakeCalendar {
    }
    
    public void add(Schedule schedule,String filePath,String fileName) {
-	      scheduleList.add(schedule);
-	      //FileSystem.save(filePath,fileName,schedule);
-	   }
-//	public void load(String filePath,String fileName) {
-//		ObjectInputStream ois = null;
-//		try {
-//			ois = new ObjectInputStream(new FileInputStream(filePath+"\\"+fileName));
-//			
-//			scheduleList = (List<Schedule>)ois.readObject();
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			e.printStackTrace();
-//		}finally {
-//			try {
-//				ois.close();
-//			} catch (Exception e2) {
-//				// TODO: handle exception
-//				e2.printStackTrace();
-//			}
-//		}
-//	}
+      scheduleList.add(schedule);
+      FileSystem.save(filePath,fileName,scheduleList);
+   	}
+   
+	public void load(String filePath,String fileName) {
+		ObjectInputStream ois = null;
+		try {
+			ois = new ObjectInputStream(new FileInputStream(filePath+"\\"+fileName));
+			scheduleList = (List<Schedule>) ois.readObject();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			try {
+				ois.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
+			}
+		}
+	}
 
    
-//   public Schedule search(int no) {
-//	   for(Schedule sch : scheduleList) {
-//		   if(sch.getNo()==no) {
-//			   return sch;
-//		   }
-//	   } 
-//	   return null;
-//   }
-   public Schedule search(Object obj,int i) {
-	   //숫자는 0
+   public Schedule search(int no) {
+	   for(Schedule sch : scheduleList) {
+		   if(sch.getNo()==no) {
+			   return sch;
+		   }
+	   } 
+	   return null;
+   }
+   public int search(Object obj,int i) {
+	   System.out.println("번호\t일정이름\t일정 작성자\t일정설명");
+	   int cnt=0;
+	   //숫자는 0 어짜피 하나 밖에 없음
 	   if(obj instanceof Integer) {
 		   int no = (int)(obj);
 		   for(Schedule sch : scheduleList) {
 			   if(sch.getNo()==no) {
-				   return sch;
+				   System.out.println(sch.getNo()+"\t"+sch.getScheduleName()+"\t"+sch.getWriter()+"\t"+sch.getContent());
+				   cnt++;
+				   //return sch;
 			   }
 		   } System.out.println();
-		   //1작성자 2카테고리
+		   //1작성자 2카테고리 여러개 가능
 	   }else {
 		   String writer = obj+"";
 		   for(Schedule sch : scheduleList) {
 			   if(i==1) {
 				   if(sch.getWriter().equals(writer)) {
-					   return sch;
+					   System.out.println(sch.getNo()+"\t"+sch.getScheduleName()+"\t"+sch.getWriter()+"\t"+sch.getContent());
+					   cnt++;
+					   //return sch;
 				   }
 			   }else if(i==2) {
 				   if(sch.getCategory().equals(writer)) {
-					   return sch;
+					   System.out.println(sch.getNo()+"\t"+sch.getScheduleName()+"\t"+sch.getWriter()+"\t"+sch.getContent());
+					   cnt++;
+					   //return sch;
 				   }
 			   }
 		   }
 	   }
-	return null;
+		   return cnt;
    }
    
    

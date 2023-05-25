@@ -3,7 +3,14 @@ import java.util.Date;
 
 public class Schedule implements Serializable{
 
-   static private int cnt=1;
+   @Override
+	public String toString() {
+		return "Schedule [no=" + no + ", writer=" + writer + ", scheduleName=" + scheduleName + ", period=" + period
+				+ ", startDay=" + startDay + ", content=" + content + ", authority=" + authority + ", alarm=" + alarm
+				+ ", category=" + category + "]";
+	}
+
+static private int cnt=1;
    
    private int no;
    private String writer;
