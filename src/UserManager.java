@@ -42,7 +42,7 @@ public class UserManager { //로그인, 유저정보 메소드 모음
          try {
             while((line = bufReader.readLine()) != null) {
                //System.out.println(line);
-               String arr[] = line.split(" ");
+               String arr[] = line.split("\t");
                if(arr[0].equals(id) && pw.equals(arr[1])) {
                   System.out.println("로그인성공");
                   bufReader.close();
