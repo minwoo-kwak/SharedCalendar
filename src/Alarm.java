@@ -11,7 +11,9 @@ public class Alarm {
       this.status = status;
    }
 
-   public boolean isStatus() {
+   
+   
+   public boolean getStatus() {
       return status;
    }
 
