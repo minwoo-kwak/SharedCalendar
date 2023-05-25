@@ -1,25 +1,27 @@
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Calendar;
 
 public class CalendarSystem {
    
     Scanner sc = new Scanner(System.in);
     MakeCalendar mc;
     FileSystem fs = new FileSystem();
-
-
     String filePath = "C:\\Temp";
     String fileName="Schedule Data Base.txt";
-    ReportSystem rs = new ReportSystem();
+    User user;
+    public void init(User user) {
 
-    public void init() {
-
+    	this.user=user;
         System.out.println("날짜를 입력하세요, 종료:q");
         System.out.println("형식 : yyyy-MM");
         System.out.print("> ");
@@ -64,14 +66,13 @@ public class CalendarSystem {
        System.out.print("> ");
        String menu = sc.nextLine();
        String obj;
-
+       
        switch (menu) {
       case "1":
          System.out.print("검색할 일정의 일정번호를 입력하세요 > ");
          obj = sc.nextLine();
          //mc.search(obj, 0);
          searchAfter(obj,menu);
-
          break;
       case "2":
     	  System.out.print("검색할 일정의 작성자를 입력하세요 > ");
@@ -88,8 +89,6 @@ public class CalendarSystem {
       }
       
    }
-
-
     public void searchAfter(String str,String menu) {
         if(mc.search(str,menu)==0) {
           	 System.out.println("해당하는 일정이 없습니다.");
@@ -112,14 +111,13 @@ public class CalendarSystem {
         }
 
 
-
     }
    public int[] showList() {
        System.out.println("일정을 볼 날짜를 입력하세요");
         System.out.print("> ");
         int selectedDay = Integer.parseInt(sc.nextLine());
         //역직렬화로 불러온다
-        int status = mc.daySchedule(selectedDay);
+        int status = mc.daySchedule(selectedDay,user);
         int[] info ={selectedDay,status};
         return info;
         
@@ -150,7 +148,7 @@ public class CalendarSystem {
            mc.show();
            break;
         case "6":
-        	rs.makeReport(mc);
+        	makeReport();
         }
     }
    private void removeSchedule() {
@@ -186,9 +184,7 @@ public class CalendarSystem {
       System.out.print("수정할 일정의 일정번호를 입력하세요 > ");
       int upNum = Integer.parseInt(sc.nextLine());
       Schedule sch= mc.search(upNum);
-
       String str="";
-
       if(sch!=null) {
           System.out.println("수정할 일정을 입력하세요");
           System.out.print("일정이름 > ");
@@ -274,8 +270,6 @@ public class CalendarSystem {
       }
    }
    
-
-
    // 리포트 생성
    public void makeReport() {
        List<Schedule> pastSchedules = new ArrayList<>();
@@ -324,8 +318,6 @@ public class CalendarSystem {
        }
 
    }
-
-
     
 
 }
