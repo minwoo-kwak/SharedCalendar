@@ -51,7 +51,7 @@ public class CalendarSystem {
     }
     private void searchSchedule() {
       // TODO Auto-generated method stub
-       System.out.println("찾을 방법을 입력하세요 1.일정번호 2.작성자 3.권한 4.카테고리 ");
+       System.out.println("찾을 방법을 입력하세요 1.일정번호 2.작성자 3.카테고리 ");
        System.out.print("> ");
        String menu = sc.nextLine();
        String obj;
@@ -59,17 +59,17 @@ public class CalendarSystem {
       case "1":
          System.out.print("검색할 일정의 일정번호를 입력하세요 > ");
          obj = sc.nextLine();
-        // mc.search(obj);
+         mc.search(obj,0);
          break;
       case "2":
-         
+    	  System.out.print("검색할 일정의 작성자를 입력하세요 > ");
+          obj = sc.nextLine();
+    	  mc.search(obj,1);
          break;
       case "3":
-         
-         break;
-         
-      case "4":
-         
+    	  System.out.print("검색할 일정의 카테고리를 입력하세요 > ");
+          obj = sc.nextLine();
+    	  mc.search(obj,2);
          break;
       }
       
@@ -116,10 +116,10 @@ public class CalendarSystem {
       // TODO Auto-generated method stub
       System.out.println("삭제할 일정의 일정번호를 입력하세요 > ");
       int upNum = Integer.parseInt(sc.nextLine());
-      Schedule sch= mc.search(upNum);
+      Schedule sch= mc.search(upNum,0);
       if(sch!=null) {
          
-         mc.removeSchedule(sch);
+         mc.remove(sch);
          }
       isSchedule(sch);
       }
@@ -127,7 +127,7 @@ public class CalendarSystem {
       // TODO Auto-generated method stub
       System.out.println("상세보기할 일정의 일정번호를 입력하세요 > ");
       int upNum = Integer.parseInt(sc.nextLine());
-      Schedule sch= mc.search(upNum);
+      Schedule sch= mc.search(upNum,0);
       if(sch!=null) {
             System.out.println("일정 번호\t일정 이름\t일정 작성자\t일정 카테고리\t일정 권한\t일정설명");
             System.out.print(sch.getNo()+"\t");
@@ -144,7 +144,7 @@ public class CalendarSystem {
    private void updateSchedule(int selectedDay) {
       System.out.print("수정할 일정의 일정번호를 입력하세요 > ");
       int upNum = Integer.parseInt(sc.nextLine());
-      Schedule sch= mc.search(upNum);
+      Schedule sch= mc.search(upNum,0);
       if(sch!=null) {
               System.out.println("수정할 일정을 입력하세요");
               System.out.print("일정이름 > ");
@@ -200,7 +200,7 @@ public class CalendarSystem {
         }
         Schedule schedule = new Schedule(writer, scheduleName, Integer.parseInt(period), selectedDay, content, authority, alarm, category);
         
-        mc.addSchedule(schedule);
+        mc.add(schedule);
         System.out.println("일정 추가 완료");
         mc.show();
         menu();
