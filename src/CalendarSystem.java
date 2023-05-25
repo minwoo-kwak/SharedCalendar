@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+
+
 import java.util.Calendar;
 
 public class CalendarSystem {
@@ -19,6 +21,7 @@ public class CalendarSystem {
     String filePath = "C:\\Temp";
     String fileName="Schedule Data Base.txt";
     User user;
+    ReportSystem rs = new ReportSystem();
     public void init(User user) {
 
     	this.user=user;
@@ -155,8 +158,14 @@ public class CalendarSystem {
            mc.show();
            break;
         case "6":
-        	//makeReport();
+        	rs.makeReport(mc);
+        	break;
+        case "7":
+        	rs.loadReport();
+        	break;
+
         }
+        	
     }
    private void removeSchedule() {
       // TODO Auto-generated method stub
@@ -182,6 +191,7 @@ public class CalendarSystem {
 //            System.out.print(sch.getAuthority()+"\t");
 //            System.out.print(sch.getContent()+"\n");
             System.out.println(sch);
+
          }
       isSchedule(sch);
       }
@@ -245,7 +255,9 @@ public class CalendarSystem {
         System.out.print("분류 > ");
         String dept=sc.nextLine();
         
+
         Schedule schedule = new Schedule(writer, scheduleName, Integer.parseInt(period), selectedDay, content, authority, alarm, dept);
+
         mc.add(schedule,filePath,fileName);
         System.out.println("일정 추가 완료"); 
         mc.show();
@@ -263,10 +275,12 @@ public class CalendarSystem {
          menu(user);
       }
    }
+
    public void scopeSelection() {
 	   
    }
    
+
 
 }
 

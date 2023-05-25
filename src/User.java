@@ -1,6 +1,8 @@
+
 import java.time.LocalDate;
 
 public class User {
+
    private String id;
    private String pw;
    private String name;
@@ -95,6 +97,13 @@ public class User {
 
 
 
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", pw=" + pw + ", name=" + name + ", position=" + position + ", dept=" + dept
+				+ ", phone=" + phone + ", email=" + email + ", hireDate=" + hireDate + ", vacation=" + vacation + "]";
+	}
+
+
    @Override
    public String toString() {
       return "User [id=" + id + ", pw=" + pw + ", name=" + name + ", position=" + position + ", dept=" + dept
@@ -104,4 +113,5 @@ public class User {
    
    
 }
+
 

@@ -27,13 +27,18 @@ public class Vacation {
 		
 		// 경과한 연수에 따른 연차 계산
 		if(yearsWorked < 1) {
-			vacationDays = 0;
-		} else if (yearsWorked < 5) {
+			// 매월 1개씩
+			vacationDays = (int) totalDays / 30;
+		} // 3년차 미만
+		else if (yearsWorked < 3) {
 			vacationDays = 15;
-		} else if (yearsWorked < 10) {
-			vacationDays = 20;
-		} else {
-			vacationDays = 25;
+		} // 연차는 3년차에 1일이 추가 되고, 그 다음 매2년 1일씩 늘어난다. 
+		else {
+			vacationDays = 15 + (yearsWorked - 1)/2;
+			// 최대 연차 발생 휴가일수는 25일이다.
+			if(vacationDays > 25) {
+				vacationDays = 25;
+			}
 		}
 		annualLeave = vacationDays; // 총 연차일수
 		ableLeave = annualLeave - usedLeave; // 남은 연차일수
@@ -42,6 +47,7 @@ public class Vacation {
 		System.out.println("남은 연차 일수: " + ableLeave);
 	}
 	
+	// 사용 연차일수 출력
 	public void leavePro(User user) {
 		System.out.println("사용한 연차 일수: " + usedLeave);
 	}

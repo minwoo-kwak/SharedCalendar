@@ -79,6 +79,7 @@ public class MakeCalendar {
     	         }
     	  }
 
+
       }
       return i;
    }
@@ -166,7 +167,9 @@ public class MakeCalendar {
 
 	} catch (Exception e) {
 		// TODO: handle exception
+
 		//2작성자 3분류
+
 	   for(Schedule sch : scheduleList) {
 		   if(menu.equals("2")) {
 			   if(sch.getWriter().equals(str)) {
@@ -175,8 +178,10 @@ public class MakeCalendar {
 				   //return sch;
 			   }
 		   }else if(menu.equals("3")) {
+
 			   if(sch.getDept().equals(str)) {
 				   sch.show();
+
 				   cnt++;
 				   //return sch;
 			   }
