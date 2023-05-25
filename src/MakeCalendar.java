@@ -55,12 +55,13 @@ public class MakeCalendar {
    }
 
    
-   public int daySchedule(int selectedDay) {
+   public int daySchedule(int selectedDay,User user) {
       System.out.println("번호\t일정이름\t일정 작성자\t일정설명");
       int i=0;
       for(Schedule sc : scheduleList) {
          
          if(sc.getStartDay()==selectedDay) {
+        	 if(user.getDept().equals(sc.getAuthority()))
             i++;
             System.out.println(sc.getNo()+"\t"+sc.getScheduleName()+"\t"+sc.getWriter()+"\t"+sc.getContent());
          }
@@ -79,7 +80,7 @@ public class MakeCalendar {
         }else {
            sch.getAlarm().setStatus(false);
         }
-	   sch.setCategory(arr[6]);
+	   
 	   FileSystem.save(filePath,fileName,scheduleList);
    }
    
@@ -144,7 +145,7 @@ public class MakeCalendar {
 
 	} catch (Exception e) {
 		// TODO: handle exception
-		//2작성자 3카테고리
+		//2작성자 3권한
 	   for(Schedule sch : scheduleList) {
 		   if(menu.equals("2")) {
 			   if(sch.getWriter().equals(str)) {
@@ -153,7 +154,7 @@ public class MakeCalendar {
 				   //return sch;
 			   }
 		   }else if(menu.equals("3")) {
-			   if(sch.getCategory().equals(str)) {
+			   if(sch.getAuthority().equals(str)) {
 				   System.out.println(sch.getNo()+"\t"+sch.getScheduleName()+"\t"+sch.getWriter()+"\t"+sch.getContent());
 				   cnt++;
 				   //return sch;
