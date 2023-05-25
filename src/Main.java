@@ -36,6 +36,7 @@ public class Main {
 	   Company cp = new Company();
 	   UserManager um = new UserManager();
 	   cp.insertUser();
+	   cp.insertAdmin();
 	   um.init();
 //	   CalendarSystem sys = new CalendarSystem();
 //	   sys.init(user);
