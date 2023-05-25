@@ -49,7 +49,7 @@ public class CalendarSystem {
 		case "1":
 			System.out.print("검색할 일정의 일정번호를 입력하세요 > ");
 			obj = sc.nextLine();
-			//mc.search(obj);
+//			mc.search(obj);
 			break;
 		case "2":
 			
@@ -106,8 +106,7 @@ public class CalendarSystem {
 		int upNum = Integer.parseInt(sc.nextLine());
 		Schedule sch= mc.search(upNum);
 		if(sch!=null) {
-			
-			mc.removeSchedule(sch);
+			mc.remove(sch);
 			}
 		isSchedule(sch);
 		}
@@ -188,11 +187,12 @@ public class CalendarSystem {
         }
         Schedule schedule = new Schedule(writer, scheduleName, Integer.parseInt(period), selectedDay, content, authority, alarm, category);
         
-        mc.addSchedule(schedule);
+        mc.add(schedule);
         System.out.println("일정 추가 완료");
         mc.show();
         menu();
 	}
+	
 	public void isSchedule(Schedule schedule) {
 		if(schedule==null) {
 			System.out.println("해당하는 일정이 없습니다");

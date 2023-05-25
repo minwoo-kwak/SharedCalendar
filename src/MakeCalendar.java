@@ -91,11 +91,11 @@ public class MakeCalendar {
       return i;
    }
    
-   public void removeSchedule(Schedule schedule) {
+   public void remove(Schedule schedule) {
 	   scheduleList.remove(schedule);
    }
    
-   public void addSchedule(Schedule schedule) {
+   public void add(Schedule schedule) {
 	      scheduleList.add(schedule);
 	   }
    
@@ -106,6 +106,12 @@ public class MakeCalendar {
 		   }
 	   } 
 	   return null;
+   }
+   public Schedule search(Object obj) {
+	   obj instanceof String
+	   for(Schedule sch : scheduleList) {
+		   
+	   }
    }
    
    
