@@ -13,9 +13,11 @@ public class CalendarSystem {
     MakeCalendar mc;
     FileSystem fs = new FileSystem();
 
+
     String filePath = "C:\\Temp";
     String fileName="Schedule Data Base.txt";
     ReportSystem rs = new ReportSystem();
+
     public void init() {
 
         System.out.println("날짜를 입력하세요, 종료:q");
@@ -86,6 +88,7 @@ public class CalendarSystem {
       }
       
    }
+
 
     public void searchAfter(String str,String menu) {
         if(mc.search(str,menu)==0) {
@@ -272,6 +275,7 @@ public class CalendarSystem {
    }
    
 
+
    // 리포트 생성
    public void makeReport() {
        List<Schedule> pastSchedules = new ArrayList<>();
@@ -320,6 +324,7 @@ public class CalendarSystem {
        }
 
    }
+
 
     
 
