@@ -30,65 +30,65 @@ public class UserManager { //로그인, 유저정보 메소드 모음
      
       int pass = 0;
       while(true) {
-         System.out.println("로그인");
-         System.out.print("아이디를 입력하세요: ");
-         id = sc.nextLine();
-         System.out.print("비밀번호를 입력하세요: ");
-         pw = sc.nextLine();
-         try {
-         FileReader filereader = new FileReader(file);
-         BufferedReader bufReader = new BufferedReader(filereader);
-         String line = "";
-         try {
-            while((line = bufReader.readLine()) != null) {
-               //System.out.println(line);
-               String arr[] = line.split("\t");
-               if(arr[0].equals(id) && pw.equals(arr[1])) {
-                  System.out.println("로그인성공");
-                  bufReader.close();
-                  myInfo();
-               }else {
-                  System.out.println("로그인실패");
-                  
-               }
-            }
-//               //System.out.println(line.indexOf(id) + "\t" + line.indexOf(pw));
-//               int passId = line.indexOf(id);
-//               int passPw = line.indexOf(pw);
-//               if(passId != -1 && passPw != -1) {
-//                  System.out.println("로그인성공");
-//                  System.out.println(line.indexOf(id) + "\t" + line.indexOf(pw));
-//                  pass = 1;
-//                  bufReader.close();
-//                  myInfo();   }
-//               if(pass == 0) {
-//                  System.out.println("로그인실패"); }
-            
-                  
-                  //myInfo();
-               //if(pass == 0) System.out.println("로그인실패 다시 시도하세요");
-            }
-            
-          catch (Exception e) {
-            // TODO: handle exception
-         }
-      } catch (Exception e) {
-         // TODO: handle exception
-      }
+    	  System.out.println("로그인");
+    	  System.out.print("아이디를 입력하세요: ");
+    	  id = sc.nextLine();
+    	  System.out.print("비밀번호를 입력하세요: ");
+    	  pw = sc.nextLine();
+    	  try {
+			FileReader filereader = new FileReader(file);
+			BufferedReader bufReader = new BufferedReader(filereader);
+			String line = "";
+			try {
+				while((line = bufReader.readLine()) != null) {
+					//System.out.println(line);
+					String arr[] = line.split("\t");
+					if(arr[0].equals(id) && pw.equals(arr[1])) {
+						System.out.println("로그인성공");
+						bufReader.close();
+						myInfo();
+					}else {
+						System.out.println("로그인실패");
+						
+					}
+				}
+//					//System.out.println(line.indexOf(id) + "\t" + line.indexOf(pw));
+//					int passId = line.indexOf(id);
+//					int passPw = line.indexOf(pw);
+//					if(passId != -1 && passPw != -1) {
+//						System.out.println("로그인성공");
+//						System.out.println(line.indexOf(id) + "\t" + line.indexOf(pw));
+//						pass = 1;
+//						bufReader.close();
+//						myInfo();	}
+//					if(pass == 0) {
+//						System.out.println("로그인실패"); }
+				
+						
+						//myInfo();
+					//if(pass == 0) System.out.println("로그인실패 다시 시도하세요");
+				}
+				
+			 catch (Exception e) {
+				// TODO: handle exception
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 
-//         if(findById(id) == null) {
-//            System.out.println("존재하지 않는 아이디입니다.");
-//            continue;
-//         }else {
-//            if(findById(id).getPw().equals(pw)) {
-//               loginUser = findById(id);
-//               System.out.println(loginUser.getName()+ "님 환영합니다.");
+//    	  if(findById(id) == null) {
+//    		  System.out.println("존재하지 않는 아이디입니다.");
+//    		  continue;
+//    	  }else {
+//    		  if(findById(id).getPw().equals(pw)) {
+//    			  loginUser = findById(id);
+//    			  System.out.println(loginUser.getName()+ "님 환영합니다.");
 //
-//               break;
-//            }
-//            System.out.println("로그인 실패 다시 시도하세요!");
-//            continue;
-//         }
+//    			  break;
+//    		  }
+//    		  System.out.println("로그인 실패 다시 시도하세요!");
+//    		  continue;
+//    	  }
       }
       
       
@@ -132,7 +132,7 @@ public class UserManager { //로그인, 유저정보 메소드 모음
             case 3:
                System.out.print("어떤 번호로 변경하시겠습니까?  ");
                String phone = sc.next();
-               loginUser.setPhone(콜);
+               loginUser.setPhone(phone);
                System.out.println("바뀐 휴대폰번호는 " + loginUser.getPhone());
                break;
             case 4:
@@ -152,7 +152,7 @@ public class UserManager { //로그인, 유저정보 메소드 모음
             
             //System.exit(0);
          case 4:
-            CalendarSystem sys = new CalendarSystem();
+        	 CalendarSystem sys = new CalendarSystem();
              sys.init();
              break;
             
