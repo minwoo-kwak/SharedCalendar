@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+
+
 import java.util.Calendar;
 
 public class CalendarSystem {
@@ -20,7 +22,11 @@ public class CalendarSystem {
     String filePath = "C:\\Temp";
     String fileName="Schedule Data Base.txt";
     User user;
+
     Calendar gc;
+
+    ReportSystem rs = new ReportSystem();
+
     public void init(User user) {
 
     	this.user=user;
@@ -34,15 +40,19 @@ public class CalendarSystem {
         
         mc.load(filePath, fileName);
         
+
         gc=mc.show(gc);
+
         menu(user);
     }
 
     
     public void menu(User user) {
        while(true) {
+
        		System.out.println("이전\t\t\t\t\t\t다음");
        		System.out.println("<\t\t\t\t\t\t>");
+
            System.out.print("1.하루 일정 보기 2.일정 검색 3.뒤로가기 ");
            if(user.getId().equals("admin")) {
         	   System.out.println("4.모든 일정보기");
@@ -76,6 +86,7 @@ public class CalendarSystem {
         	  gc.roll(Calendar.MONTH, +1);
               mc.show(gc);
               break;
+
 
           default:
              continue;
@@ -114,7 +125,9 @@ public class CalendarSystem {
     public void searchAfter(String str,String menu) {
         if(mc.search(str,menu)==0) {
           	 System.out.println("해당하는 일정이 없습니다.");
+
            	 mc.show(gc);
+
            	 menu(user);
         }else {
         	System.out.println("1.일정 상세 보기 2.뒤로가기");
@@ -170,8 +183,15 @@ public class CalendarSystem {
            mc.show(gc);
            break;
         case "6":
-        	//makeReport();
+
+        	rs.makeReport(mc);
+        	break;
+        case "7":
+        	rs.loadReport();
+        	break;
+
         }
+        	
     }
    private void removeSchedule() {
       // TODO Auto-generated method stub
@@ -197,6 +217,7 @@ public class CalendarSystem {
 //            System.out.print(sch.getAuthority()+"\t");
 //            System.out.print(sch.getContent()+"\n");
             System.out.println(sch);
+
          }
       isSchedule(sch);
       }
@@ -211,6 +232,7 @@ public class CalendarSystem {
           System.out.println("수정할 일정을 입력하세요");
           System.out.print("일정이름 > ");
           str+=sc.nextLine()+",";
+
           System.out.print("일정권한 y or n > ");
           str+=sc.nextLine()+",";
           System.out.print("설명 > ");
@@ -233,8 +255,10 @@ public class CalendarSystem {
         System.out.println("추가할 일정을 입력하세요");
         System.out.print("일정이름 > ");
         String scheduleName=sc.nextLine();
+
 //        System.out.print("작성자 > ");
         String writer=user.getId();
+
         System.out.print("일정권한 y or n> ");
         String aut=sc.nextLine();
         boolean authority;
@@ -255,6 +279,7 @@ public class CalendarSystem {
         }else {
            alarm.setStatus(false);
         }
+
 //        System.out.print("분류 > ");
 //        String dept=sc.nextLine();
         
@@ -262,12 +287,14 @@ public class CalendarSystem {
         mc.add(schedule,filePath,fileName);
         System.out.println("일정 추가 완료"); 
         mc.show(gc);
+
         menu(user);
    }
    
    public void isSchedule(Schedule schedule) {
       if(schedule==null) {
          System.out.println("해당하는 일정이 없습니다");
+
          mc.show(gc);
          menu(user);
       }else {
@@ -276,10 +303,12 @@ public class CalendarSystem {
          menu(user);
       }
    }
+
    public void scopeSelection() {
 	   
    }
    
+
 
 }
 

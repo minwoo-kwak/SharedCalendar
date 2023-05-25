@@ -16,7 +16,7 @@ static private int cnt=1;
    private boolean authority;//나만 보기(개인일정)
    private Alarm alarm;
    private String dept;//개인일정 뭐 그런거 부서별 
-   
+
    public Schedule() {
       no=cnt;
       cnt++;

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
 public class UserManager { //로그인, 유저정보 메소드 모음
    Scanner sc = new Scanner(System.in); 
    
@@ -59,6 +60,7 @@ public class UserManager { //로그인, 유저정보 메소드 모음
          id = sc.nextLine();
          System.out.print("비밀번호를 입력하세요: ");
          pw = sc.nextLine();
+
 //         try {
 //         FileReader filereader = new FileReader(file);
 //         BufferedReader bufReader = new BufferedReader(filereader);
@@ -284,4 +286,5 @@ public class UserManager { //로그인, 유저정보 메소드 모음
         return null;
    }
    
+
 }

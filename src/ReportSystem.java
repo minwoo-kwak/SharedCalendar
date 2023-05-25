@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class ReportSystem {
 	List<Report> reportList = new ArrayList<Report>();
+	Scanner scanner = new Scanner(System.in);
 
 	public ReportSystem() {
 	}
@@ -56,10 +57,11 @@ public class ReportSystem {
 		if (fs.writeFile(filePath, fileName, sb)) {
 			// Report 객체 생성 및 reportList에 추가
 			Report report = new Report();
-			report.setName("리포트 이름"); // 리포트 이름 설정
-			report.setWriter("작성자"); // 작성자 설정
+			System.out.print("리포트 이름을 입력해주세요: ");
+			report.setName(scanner.nextLine()); // 리포트 이름 설정
+			report.setWriter(UserManager.getLoginUser().getName()); // 작성자 설정
 			report.setPeriod(timeStamp); // 기간 설정
-			report.setDept("부서"); // 부서 설정
+			report.setDept(UserManager.getLoginUser().getDept()); // 부서 설정
 			report.setContents(sb.toString()); // 보고서 내용 삽입
 			reportList.add(report); // 보고서 목록에 보고서 추가
 			

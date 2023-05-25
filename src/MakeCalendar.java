@@ -72,7 +72,9 @@ public class MakeCalendar {
     		  sc.show();
     		  i++;
     	  }else {
+
     	         if(sc.getStartDay()==selectedDay) {//선택된 날짜
+
     	        	 if(sc.getDept().equals(user.getDept())) {//부서별
     		        	 if(sc.getAuthority()==true) {//스케줄이 만약 나만 보기라면 작성자를 확인해서 같으면 보여줌
     		        		 if(sc.getWriter().equals(user.getName())){
@@ -87,6 +89,7 @@ public class MakeCalendar {
     	         }
     	  }
 
+
       }
       return i;
    }
@@ -94,17 +97,21 @@ public class MakeCalendar {
    public void update(Schedule sch,String str,String filePath,String fileName) {
 	   String[] arr = str.split(",");
 	   sch.setScheduleName(arr[0]);
+
 	   //sch.setWriter(arr[1]); 
 	   boolean aut;
 	   if(arr[1].equals("y")) {
+
            aut=true;
         }else {
         	aut=false;
         }
 	   sch.setAuthority(aut);
+
 	   sch.setContent(arr[2]);
 	   sch.setPeriod(Integer.parseInt(arr[3]));
 	   if(arr[4].equals("y")) {
+
            sch.getAlarm().setStatus(true);
         }else {
            sch.getAlarm().setStatus(false);
@@ -174,7 +181,9 @@ public class MakeCalendar {
 
 	} catch (Exception e) {
 		// TODO: handle exception
+
 		//2작성자 3분류
+
 	   for(Schedule sch : scheduleList) {
 		   if(menu.equals("2")) {
 			   if(sch.getWriter().equals(str)) {
@@ -183,8 +192,10 @@ public class MakeCalendar {
 				   //return sch;
 			   }
 		   }else if(menu.equals("3")) {
+
 			   if(sch.getDept().equals(str)) {
 				   sch.show();
+
 				   cnt++;
 				   //return sch;
 			   }
