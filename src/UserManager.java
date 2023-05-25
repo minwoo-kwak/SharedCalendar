@@ -1,4 +1,7 @@
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,7 +12,7 @@ public class UserManager { //로그인, 유저정보 메소드 모음
    private static User loginUser = null;
    private String id;
    private String pw;
-   
+   File file  = new File("C:\\user\\userDB.txt");
    public void init() { //초기화면
         System.out.print(
                 "[1] Login [0]Exit \n" +
@@ -22,33 +25,61 @@ public class UserManager { //로그인, 유저정보 메소드 모음
    
    
    public void login() { // 로그인메소드
-      userList.add(new User("1234","1234","나병희","사원","개발팀","010-8747-7304","nbh7301@naver.com"));
-      userList.add(new User("1111","1111","너병희","주임","인사팀","010-8747-7304","nbh7301@naver.com"));
-      
+      //userList.add(new User("1234","1234","나병희","사원","개발팀","010-8747-7304","nbh7301@naver.com"));
+     // userList.add(new User("1111","1111","너병희","주임","인사팀","010-8747-7304","nbh7301@naver.com"));
+     
+      int pass = 0;
       while(true) {
-      System.out.println("로그인");
-      System.out.print("아이디를 입력하세요: ");
-      id = sc.next();
-      System.out.print("비밀번호를 입력하세요: ");
-      pw = sc.next();
-      
-      if(findById(id) == null) {
-         System.out.println("존재하지 않는 아이디입니다.");
-         continue;
-      }else {
-         if(findById(id).getPw().equals(pw)) {
-            loginUser = findById(id);
-                System.out.println(loginUser.getName()+ "님 환영합니다.");
-                
-                break;
-         }
-         System.out.println("로그인 실패 다시 시도하세요!");
-         continue;
+    	  System.out.println("로그인");
+    	  System.out.print("아이디를 입력하세요: ");
+    	  id = sc.nextLine();
+    	  System.out.print("비밀번호를 입력하세요: ");
+    	  pw = sc.nextLine();
+    	  try {
+			FileReader filereader = new FileReader(file);
+			BufferedReader bufReader = new BufferedReader(filereader);
+			String line = "";
+			try {
+				while((line = bufReader.readLine()) != null) {
+					System.out.println(line.indexOf(id) + "\t" + line.indexOf(pw));
+					int passId = line.indexOf(id);
+					int passPw = line.indexOf(pw);
+					if(passId != -1 && passPw != -1) {
+						System.out.println("로그인성공");
+						System.out.println(line.indexOf(id) + "\t" + line.indexOf(pw));
+						pass = 1;
+						bufReader.close();
+						myInfo();
+					}
+						
+						//myInfo();
+					//if(pass == 0) System.out.println("로그인실패 다시 시도하세요");
+				}
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+//    	  if(findById(id) == null) {
+//    		  System.out.println("존재하지 않는 아이디입니다.");
+//    		  continue;
+//    	  }else {
+//    		  if(findById(id).getPw().equals(pw)) {
+//    			  loginUser = findById(id);
+//    			  System.out.println(loginUser.getName()+ "님 환영합니다.");
+//
+//    			  break;
+//    		  }
+//    		  System.out.println("로그인 실패 다시 시도하세요!");
+//    		  continue;
+//    	  }
+
       }
-         
-      }
-      myInfo();
       
+
    }
    
    public void myInfo() { //로그인한 후 화면
