@@ -36,12 +36,15 @@ public class CalendarSystem {
         mc.load(filePath, fileName);
         
         mc.show();
-        menu();
+        menu(user);
     }
     
-    public void menu() {
+    public void menu(User user) {
        while(true) {
-           System.out.println("1.하루 일정 보기 2.일정 검색 3.뒤로가기");
+           System.out.print("1.하루 일정 보기 2.일정 검색 3.뒤로가기 ");
+           if(user.getId().equals("admin")) {
+        	   System.out.println("4.모든 일정보기");
+           }
             System.out.print("> ");
             String menu = sc.nextLine();
             switch (menu) {
@@ -57,6 +60,10 @@ public class CalendarSystem {
           case "3":
              mc.show();
              break;
+          case "4":
+              mc.daySchedule(0, user);
+              break;
+
 
           default:
              break;
@@ -96,7 +103,7 @@ public class CalendarSystem {
         if(mc.search(str,menu)==0) {
           	 System.out.println("해당하는 일정이 없습니다.");
            	 mc.show();
-           	 menu();
+           	 menu(user);
         }else {
         	System.out.println("1.일정 상세 보기 2.뒤로가기");
         	String afterMenu = sc.nextLine();
@@ -156,6 +163,7 @@ public class CalendarSystem {
         case "7":
         	rs.loadReport();
         	break;
+
         }
         	
     }
@@ -177,11 +185,13 @@ public class CalendarSystem {
       Schedule sch= mc.search(upNum);
       if(sch!=null) {
             System.out.println("일정 번호\t일정 이름\t일정 작성자\t일정 권한\t일정설명");
-            System.out.print(sch.getNo()+"\t");
-            System.out.print(sch.getScheduleName()+"\t");
-            System.out.print(sch.getWriter()+"\t");
-            System.out.print(sch.getAuthority()+"\t");
-            System.out.print(sch.getContent()+"\n");
+//            System.out.print(sch.getNo()+"\t");
+//            System.out.print(sch.getScheduleName()+"\t");
+//            System.out.print(sch.getWriter()+"\t");
+//            System.out.print(sch.getAuthority()+"\t");
+//            System.out.print(sch.getContent()+"\n");
+            System.out.println(sch);
+
          }
       isSchedule(sch);
       }
@@ -198,7 +208,7 @@ public class CalendarSystem {
           str+=sc.nextLine()+",";
           System.out.print("작성자 > ");
           str+=sc.nextLine()+",";
-          System.out.print("일정권한 > ");
+          System.out.print("일정권한 y or n > ");
           str+=sc.nextLine()+",";
           System.out.print("설명 > ");
           str+=sc.nextLine()+",";
@@ -222,8 +232,14 @@ public class CalendarSystem {
         String scheduleName=sc.nextLine();
         System.out.print("작성자 > ");
         String writer=sc.nextLine();
-        System.out.print("일정권한 > ");
-        String authority=sc.nextLine();
+        System.out.print("일정권한 y or n> ");
+        String aut=sc.nextLine();
+        boolean authority;
+        if(aut.equals("y")) {
+        	authority=true;
+         }else {
+        	 authority=false;
+         }
         System.out.print("설명 > ");
         String content=sc.nextLine();
         System.out.print("기간 > ");
@@ -236,46 +252,35 @@ public class CalendarSystem {
         }else {
            alarm.setStatus(false);
         }
-        
-        Schedule schedule = new Schedule(writer, scheduleName, Integer.parseInt(period), selectedDay, content, authority, alarm);
-        mc.add(schedule,filePath,fileName);
-        System.out.println("일정 추가 완료");
-        //String sb ="";
-//        StringBuilder sb= new StringBuilder();
-//        sb.append(schedule.getNo()+" ");
-//        sb.append(schedule.getScheduleName()+" ");
-//        sb.append(schedule.getPeriod()+" ");
-//        sb.append(schedule.getStartDay()+" ");
-//        sb.append(schedule.getContent()+" ");
-//        sb.append(schedule.getAuthority()+" ");
-//        sb.append(schedule.getAlarm().getStatus()+" ");
-//        sb.append(schedule.getCategory()+" ");
+        System.out.print("분류 > ");
+        String dept=sc.nextLine();
         
 
-//        if(fs.writeFile(filePath,fileName,sb)) {
-//        	System.out.println("일정을 저장을 완료했습니다.");
-//        }else {
-//        	System.out.println("파일을 저장하는 도중에 오류가 발생했습니다.");
-//        }
-        
+        Schedule schedule = new Schedule(writer, scheduleName, Integer.parseInt(period), selectedDay, content, authority, alarm, dept);
+
+        mc.add(schedule,filePath,fileName);
+        System.out.println("일정 추가 완료"); 
         mc.show();
-        menu();
+        menu(user);
    }
    
    public void isSchedule(Schedule schedule) {
       if(schedule==null) {
          System.out.println("해당하는 일정이 없습니다");
          mc.show();
-         menu();
+         menu(user);
       }else {
          System.out.println("완료");
          mc.show();
-         menu();
+         menu(user);
       }
    }
+
+   public void scopeSelection() {
+	   
+   }
    
-   
-    
+
 
 }
 

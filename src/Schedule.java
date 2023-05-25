@@ -13,17 +13,21 @@ static private int cnt=1;
    private int period;
    private int startDay;
    private String content;
-   private String authority;//나만 보기(개인일정) 부서보기
+
+   private boolean authority;//나만 보기(개인일정)
    private Alarm alarm;
-//   private String category;//개인일정 뭐 그런거
+   private String dept;//개인일정 뭐 그런거 부서별 
+
    
    public Schedule() {
       no=cnt;
       cnt++;
    }
 
-   public Schedule(String writer, String scheduleName, int period, int startDay, String content, String authority,
-         Alarm alarm) {
+
+   public Schedule(String writer, String scheduleName, int period, int startDay, String content, boolean authority,
+         Alarm alarm,String category) {
+
       super();
       no=cnt;
       cnt++;
@@ -32,9 +36,24 @@ static private int cnt=1;
       this.period = period;
       this.startDay = startDay;
       this.content = content;
-      this.authority = authority;
+      this.authority = authority; //true 나만보기, false 같이보기
       this.alarm = alarm;
+
+      this.dept=category;
+
    }
+   
+@Override
+public String toString() {
+	return "일정 번호: " + no + "\n 작성자: " + writer + "\n 일정 이름: " + scheduleName + "\n 기간: " + period
+			+ "\n 작성 날짜: " + startDay + "\n 내용: " + content + "\n 권한: " + authority + "\n 알람: " + alarm
+			+ "\n 카테고리: " + dept + "\n";
+}
+
+public void show() {
+	   System.out.println(getNo()+"\t"+getScheduleName()+"\t"+getWriter()+"\t"+getContent());
+   }
+   
 
    public int getNo() {
       return no;
@@ -82,14 +101,14 @@ static private int cnt=1;
       this.content = content;
    }
 
-   public String getAuthority() {
-      return authority;
-   }
 
-   public void setAuthority(String authority) {
-      this.authority = authority;
-   }
-
+	public boolean getAuthority() {
+		return authority;
+	}
+	
+	public void setAuthority(boolean authority) {
+		this.authority = authority;
+	}
 
 
 	public Alarm getAlarm() {
@@ -99,7 +118,13 @@ static private int cnt=1;
 	public void setAlarm(Alarm alarm) {
 		this.alarm = alarm;
 	}
+	public String getDept() {
+		return dept;
+	}
 
+	public void setDept(String category) {
+		this.dept = category;
+	}
 
    
    
