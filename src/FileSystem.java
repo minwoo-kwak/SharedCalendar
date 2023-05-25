@@ -22,34 +22,39 @@ public class FileSystem {
             //System.out.println("저장완료.");
             return true;
         } catch (IOException e) {
-            System.out.println("파일을 저장하는 도중에 오류가 발생했습니다.");
+//            System.out.println("파일을 저장하는 도중에 오류가 발생했습니다.");
             e.printStackTrace();
             return false;
             
         }
 	}
-//	public static void save(String filePath, String fileName, Object obj) {
-//      ObjectOutputStream oos = null;
-//        try {
-//			oos = new ObjectOutputStream(new FileOutputStream(filePath+"\\"+fileName));
-//			oos.writeObject(obj);
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			e.printStackTrace();
-//		}finally {
-//			try {
-//				oos.close();
-//			} catch (Exception e2) {
-//				// TODO: handle exception
-//				e2.printStackTrace();
-//			}
-//		}  
-//	}
-//	public static void load(String filePath,String fileName) {
+	public static void save(String filePath, String fileName, Object obj) {
+      ObjectOutputStream oos = null;
+        try {
+			oos = new ObjectOutputStream(new FileOutputStream(filePath+"\\"+fileName));
+			oos.writeObject(obj);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			try {
+				oos.flush();
+				oos.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
+			}
+		}  
+	}
+//	public static List<Schedule> load(String filePath,String fileName) {
 //		ObjectInputStream ois = null;
+//		
+//			
+//		
 //		try {
 //			ois = new ObjectInputStream(new FileInputStream(filePath+"\\"+fileName));
-//			//return (List<Object>)ois.readObject();
+//			
+//			return (List<Schedule>)ois.readObject();
 //		} catch (Exception e) {
 //			// TODO: handle exception
 //			e.printStackTrace();
@@ -61,7 +66,9 @@ public class FileSystem {
 //				e2.printStackTrace();
 //			}
 //		}
-//		return null;
+//		
+//
+//
 //	}
 
 }
