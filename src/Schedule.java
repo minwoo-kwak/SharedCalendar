@@ -3,12 +3,7 @@ import java.util.Date;
 
 public class Schedule implements Serializable{
 
-   @Override
-	public String toString() {
-		return "Schedule [no=" + no + ", writer=" + writer + ", scheduleName=" + scheduleName + ", period=" + period
-				+ ", startDay=" + startDay + ", content=" + content + ", authority=" + authority + ", alarm=" + alarm
-				+ ", category=" + category + "]";
-	}
+
 
 static private int cnt=1;
    
@@ -18,9 +13,9 @@ static private int cnt=1;
    private int period;
    private int startDay;
    private String content;
-   private String authority;
+   private String authority;//나만 보기(개인일정) 부서보기
    private Alarm alarm;
-   private String category;
+//   private String category;//개인일정 뭐 그런거
    
    public Schedule() {
       no=cnt;
@@ -28,7 +23,7 @@ static private int cnt=1;
    }
 
    public Schedule(String writer, String scheduleName, int period, int startDay, String content, String authority,
-         Alarm alarm, String category) {
+         Alarm alarm) {
       super();
       no=cnt;
       cnt++;
@@ -39,7 +34,6 @@ static private int cnt=1;
       this.content = content;
       this.authority = authority;
       this.alarm = alarm;
-      this.category = category;
    }
 
    public int getNo() {
@@ -96,13 +90,7 @@ static private int cnt=1;
       this.authority = authority;
    }
 
-   public String getCategory() {
-      return category;
-   }
 
-   public void setCategory(String category) {
-      this.category = category;
-   }
 
 	public Alarm getAlarm() {
 		return alarm;
