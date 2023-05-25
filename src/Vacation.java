@@ -2,9 +2,9 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 public class Vacation {
-	private int annualLeave;
-	private int usedLeave;
-	private int ableLeave;
+	private int annualLeave; // 연차
+	private int usedLeave = 0; // 사용한 연차
+	private int ableLeave; // 사용가능한 연차
 	
 	public Vacation() {}
 	public Vacation(int annualLeave, int usedLeave, int ableLeave) {
