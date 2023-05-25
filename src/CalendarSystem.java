@@ -168,11 +168,10 @@ public class CalendarSystem {
       int upNum = Integer.parseInt(sc.nextLine());
       Schedule sch= mc.search(upNum);
       if(sch!=null) {
-            System.out.println("일정 번호\t일정 이름\t일정 작성자\t일정 카테고리\t일정 권한\t일정설명");
+            System.out.println("일정 번호\t일정 이름\t일정 작성자\t일정 권한\t일정설명");
             System.out.print(sch.getNo()+"\t");
             System.out.print(sch.getScheduleName()+"\t");
             System.out.print(sch.getWriter()+"\t");
-            System.out.print(sch.getCategory()+"\t");
             System.out.print(sch.getAuthority()+"\t");
             System.out.print(sch.getContent()+"\n");
          }
@@ -199,12 +198,11 @@ public class CalendarSystem {
           str+=sc.nextLine()+",";
           System.out.print("알람여부 y or n > ");
           str+=sc.nextLine()+",";
-          System.out.print("카테고리 > ");
-          str+=sc.nextLine();
+
           mc.update(sch,str,filePath,fileName);
          }
       isSchedule(sch);
-      mc.daySchedule(sch.getStartDay());
+      mc.daySchedule(sch.getStartDay(),user);
       }
    
    private void addSchedule(int selectedDay) {
@@ -224,8 +222,6 @@ public class CalendarSystem {
         String period=sc.nextLine();
         System.out.print("알람여부 y or n > ");
         String al=sc.nextLine();
-        System.out.print("카테고리 > ");
-        String category=sc.nextLine();
         Alarm alarm = new Alarm();
         if(al.equals("y")) {
            alarm.setStatus(true);
@@ -233,7 +229,7 @@ public class CalendarSystem {
            alarm.setStatus(false);
         }
         
-        Schedule schedule = new Schedule(writer, scheduleName, Integer.parseInt(period), selectedDay, content, authority, alarm, category);
+        Schedule schedule = new Schedule(writer, scheduleName, Integer.parseInt(period), selectedDay, content, authority, alarm);
         mc.add(schedule,filePath,fileName);
         System.out.println("일정 추가 완료");
         //String sb ="";
