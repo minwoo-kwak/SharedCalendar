@@ -41,22 +41,35 @@ public class UserManager { //로그인, 유저정보 메소드 모음
 			String line = "";
 			try {
 				while((line = bufReader.readLine()) != null) {
-					System.out.println(line.indexOf(id) + "\t" + line.indexOf(pw));
-					int passId = line.indexOf(id);
-					int passPw = line.indexOf(pw);
-					if(passId != -1 && passPw != -1) {
+					//System.out.println(line);
+					String arr[] = line.split("\t");
+					if(arr[0].equals(id) && pw.equals(arr[1])) {
 						System.out.println("로그인성공");
-						System.out.println(line.indexOf(id) + "\t" + line.indexOf(pw));
-						pass = 1;
 						bufReader.close();
 						myInfo();
+					}else {
+						System.out.println("로그인실패");
+						
 					}
+				}
+//					//System.out.println(line.indexOf(id) + "\t" + line.indexOf(pw));
+//					int passId = line.indexOf(id);
+//					int passPw = line.indexOf(pw);
+//					if(passId != -1 && passPw != -1) {
+//						System.out.println("로그인성공");
+//						System.out.println(line.indexOf(id) + "\t" + line.indexOf(pw));
+//						pass = 1;
+//						bufReader.close();
+//						myInfo();	}
+//					if(pass == 0) {
+//						System.out.println("로그인실패"); }
+				
 						
 						//myInfo();
 					//if(pass == 0) System.out.println("로그인실패 다시 시도하세요");
 				}
 				
-			} catch (Exception e) {
+			 catch (Exception e) {
 				// TODO: handle exception
 			}
 		} catch (Exception e) {
@@ -76,8 +89,8 @@ public class UserManager { //로그인, 유저정보 메소드 모음
 //    		  System.out.println("로그인 실패 다시 시도하세요!");
 //    		  continue;
 //    	  }
-
       }
+      
       
 
    }
