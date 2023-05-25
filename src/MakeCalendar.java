@@ -30,14 +30,21 @@ public class MakeCalendar {
 
    }
 
-   public void show() {
+   public Calendar show(Calendar cal) {
+	   Calendar gc;
+	   if(cal==null) {
+		   gc = Calendar.getInstance();
+	   }else {
+		   gc = cal;
+	   }
       this.defaultCalendar = 1;
       
-      Calendar gc = Calendar.getInstance();
+      
       int n = gc.getActualMaximum(Calendar.DATE);
 
-      gc.set(this.year,this.year,1); //5월 1일
+      gc.set(this.year,this.month-1,1); //5월 1일
       int week = gc.get(Calendar.DAY_OF_WEEK);//1~7
+      
       
       System.out.println("<"+this.year+"년 "+(this.month)+"월>");
       System.out.println("일\t월\t화\t수\t목\t금\t토");
@@ -52,6 +59,7 @@ public class MakeCalendar {
       }
       System.out.println();
       System.out.println();
+      return gc;
    }
 
    
@@ -64,7 +72,7 @@ public class MakeCalendar {
     		  sc.show();
     		  i++;
     	  }else {
-    	         if(sc.getStartDay()==selectedDay) {//선탠된 날짜
+    	         if(sc.getStartDay()==selectedDay) {//선택된 날짜
     	        	 if(sc.getDept().equals(user.getDept())) {//부서별
     		        	 if(sc.getAuthority()==true) {//스케줄이 만약 나만 보기라면 작성자를 확인해서 같으면 보여줌
     		        		 if(sc.getWriter().equals(user.getName())){
@@ -86,17 +94,17 @@ public class MakeCalendar {
    public void update(Schedule sch,String str,String filePath,String fileName) {
 	   String[] arr = str.split(",");
 	   sch.setScheduleName(arr[0]);
-	   sch.setWriter(arr[1]); 
+	   //sch.setWriter(arr[1]); 
 	   boolean aut;
-	   if(arr[2].equals("y")) {
+	   if(arr[1].equals("y")) {
            aut=true;
         }else {
         	aut=false;
         }
 	   sch.setAuthority(aut);
-	   sch.setContent(arr[3]);
-	   sch.setPeriod(Integer.parseInt(arr[4]));
-	   if(arr[5].equals("y")) {
+	   sch.setContent(arr[2]);
+	   sch.setPeriod(Integer.parseInt(arr[3]));
+	   if(arr[4].equals("y")) {
            sch.getAlarm().setStatus(true);
         }else {
            sch.getAlarm().setStatus(false);

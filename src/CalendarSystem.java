@@ -16,9 +16,11 @@ public class CalendarSystem {
     Scanner sc = new Scanner(System.in);
     MakeCalendar mc;
     FileSystem fs = new FileSystem();
+    UserManager um = new UserManager();
     String filePath = "C:\\Temp";
     String fileName="Schedule Data Base.txt";
     User user;
+    Calendar gc;
     public void init(User user) {
 
     	this.user=user;
@@ -32,12 +34,15 @@ public class CalendarSystem {
         
         mc.load(filePath, fileName);
         
-        mc.show();
+        gc=mc.show(gc);
         menu(user);
     }
+
     
     public void menu(User user) {
        while(true) {
+       		System.out.println("이전\t\t\t\t\t\t다음");
+       		System.out.println("<\t\t\t\t\t\t>");
            System.out.print("1.하루 일정 보기 2.일정 검색 3.뒤로가기 ");
            if(user.getId().equals("admin")) {
         	   System.out.println("4.모든 일정보기");
@@ -55,15 +60,25 @@ public class CalendarSystem {
              searchSchedule();
              break;
           case "3":
-             mc.show();
+             um.myInfo();
              break;
           case "4":
               mc.daySchedule(0, user);
+              scheduleManage(1, 1);
+              break;
+          case "<":
+        	  mc.setMonth(mc.getMonth()-1);
+              gc.roll(Calendar.MONTH, -1);
+              mc.show(gc);
+              break;
+          case ">":
+        	  mc.setMonth(mc.getMonth()+1);
+        	  gc.roll(Calendar.MONTH, +1);
+              mc.show(gc);
               break;
 
-
           default:
-             break;
+             continue;
           }
        }
     }
@@ -99,7 +114,7 @@ public class CalendarSystem {
     public void searchAfter(String str,String menu) {
         if(mc.search(str,menu)==0) {
           	 System.out.println("해당하는 일정이 없습니다.");
-           	 mc.show();
+           	 mc.show(gc);
            	 menu(user);
         }else {
         	System.out.println("1.일정 상세 보기 2.뒤로가기");
@@ -109,7 +124,7 @@ public class CalendarSystem {
     			scheduleDetail();
     			break;
     		case "2":
-    			mc.show();
+    			mc.show(gc);
     			break;
     		default:
     			searchAfter(str,menu);
@@ -123,7 +138,7 @@ public class CalendarSystem {
        System.out.println("일정을 볼 날짜를 입력하세요");
         System.out.print("> ");
         int selectedDay = Integer.parseInt(sc.nextLine());
-        //역직렬화로 불러온다
+
         int status = mc.daySchedule(selectedDay,user);
         int[] info ={selectedDay,status};
         return info;
@@ -152,7 +167,7 @@ public class CalendarSystem {
            removeSchedule();
            break;
         case "5":
-           mc.show();
+           mc.show(gc);
            break;
         case "6":
         	//makeReport();
@@ -196,8 +211,6 @@ public class CalendarSystem {
           System.out.println("수정할 일정을 입력하세요");
           System.out.print("일정이름 > ");
           str+=sc.nextLine()+",";
-          System.out.print("작성자 > ");
-          str+=sc.nextLine()+",";
           System.out.print("일정권한 y or n > ");
           str+=sc.nextLine()+",";
           System.out.print("설명 > ");
@@ -220,8 +233,8 @@ public class CalendarSystem {
         System.out.println("추가할 일정을 입력하세요");
         System.out.print("일정이름 > ");
         String scheduleName=sc.nextLine();
-        System.out.print("작성자 > ");
-        String writer=sc.nextLine();
+//        System.out.print("작성자 > ");
+        String writer=user.getId();
         System.out.print("일정권한 y or n> ");
         String aut=sc.nextLine();
         boolean authority;
@@ -242,24 +255,24 @@ public class CalendarSystem {
         }else {
            alarm.setStatus(false);
         }
-        System.out.print("분류 > ");
-        String dept=sc.nextLine();
+//        System.out.print("분류 > ");
+//        String dept=sc.nextLine();
         
-        Schedule schedule = new Schedule(writer, scheduleName, Integer.parseInt(period), selectedDay, content, authority, alarm, dept);
+        Schedule schedule = new Schedule(writer, scheduleName, Integer.parseInt(period), selectedDay, content, authority, alarm, user.getDept());
         mc.add(schedule,filePath,fileName);
         System.out.println("일정 추가 완료"); 
-        mc.show();
+        mc.show(gc);
         menu(user);
    }
    
    public void isSchedule(Schedule schedule) {
       if(schedule==null) {
          System.out.println("해당하는 일정이 없습니다");
-         mc.show();
+         mc.show(gc);
          menu(user);
       }else {
          System.out.println("완료");
-         mc.show();
+         mc.show(gc);
          menu(user);
       }
    }
