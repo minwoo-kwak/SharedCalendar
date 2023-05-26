@@ -43,7 +43,7 @@ static private int cnt=1;
 public String toString() {
 	return "일정 번호: " + no + "\n 작성자: " + writer + "\n 일정 이름: " + scheduleName + "\n 기간: " + period
 			+ "\n 작성 날짜: " + month+"/"+ startDay + "\n 내용: " + content + "\n 권한: " + authority + "\n 알람: " + alarm
-			+ "\n 카테고리: " + dept + "\n";
+			+ "\n 부서: " + dept + "\n";
 }
 
 
