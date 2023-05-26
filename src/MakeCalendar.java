@@ -46,7 +46,8 @@ public class MakeCalendar {
       int week = gc.get(Calendar.DAY_OF_WEEK);//1~7
       
       
-      System.out.println("<"+this.year+"년 "+(this.month)+"월>");
+      System.out.println("■■■■■■■■■■■■■■■■■■■<"+this.year+"년 "+(this.month)+"월>■■■■■■■■■■■■■■■■■■■■■");
+      System.out.println();
       System.out.println("일\t월\t화\t수\t목\t금\t토");
       for(int i=1;i<week;i++) {
          System.out.print("\t");
@@ -63,17 +64,17 @@ public class MakeCalendar {
    }
 
    
-   public int daySchedule(int selectedDay,User user) {
+   public int daySchedule(int month,int selectedDay,User user) {
       System.out.println("번호\t일정이름\t일정 작성자\t일정설명");
       int i=0;
       
       for(Schedule sc : scheduleList) {
-    	  if(selectedDay==0) {//admin전용
+    	  if(selectedDay==0&&month==0) {//admin전용
     		  sc.show();
     		  i++;
     	  }else {
 
-    	         if(sc.getStartDay()==selectedDay) {//선택된 날짜
+    	         if(sc.getStartDay()==selectedDay && sc.getMonth()==month) {//선택된 날짜
 
     	        	 if(sc.getDept().equals(user.getDept())) {//부서별
     		        	 if(sc.getAuthority()==true) {//스케줄이 만약 나만 보기라면 작성자를 확인해서 같으면 보여줌
