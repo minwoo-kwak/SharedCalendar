@@ -16,6 +16,7 @@ static private int cnt=1;
    private boolean authority;//나만 보기(개인일정)
    private Alarm alarm;
    private String dept;//개인일정 뭐 그런거 부서별 
+   private int month; //달 정보
 
    public Schedule() {
       no=cnt;
@@ -23,7 +24,7 @@ static private int cnt=1;
    }
 
    public Schedule(String writer, String scheduleName, int period, int startDay, String content, boolean authority,
-         Alarm alarm,String category) {
+         Alarm alarm,String category, int month) {
       super();
       no=cnt;
       cnt++;
@@ -35,17 +36,21 @@ static private int cnt=1;
       this.authority = authority; //true 나만보기, false 같이보기
       this.alarm = alarm;
       this.dept=category;
+      this.month=month;
    }
    
 @Override
 public String toString() {
 	return "일정 번호: " + no + "\n 작성자: " + writer + "\n 일정 이름: " + scheduleName + "\n 기간: " + period
-			+ "\n 작성 날짜: " + startDay + "\n 내용: " + content + "\n 권한: " + authority + "\n 알람: " + alarm
+			+ "\n 작성 날짜: " + month+"/"+ startDay + "\n 내용: " + content + "\n 권한: " + authority + "\n 알람: " + alarm
 			+ "\n 카테고리: " + dept + "\n";
 }
 
+
+
+
 public void show() {
-	   System.out.println(getNo()+"\t"+getScheduleName()+"\t"+getWriter()+"\t"+getContent());
+	   System.out.println(getNo()+"\t| "+getScheduleName()+"\t| "+getWriter()+"\t | "+getContent());
    }
    
 
@@ -118,6 +123,11 @@ public void show() {
 		this.dept = category;
 	}
 
-   
-   
+	public int getMonth() {
+		return month;
+	}
+
+	public void setMonth(int month) {
+		this.month = month;
+	}
 }
