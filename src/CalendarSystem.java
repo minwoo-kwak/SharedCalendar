@@ -101,7 +101,7 @@ public class CalendarSystem {
     private void searchSchedule() {
       // TODO Auto-generated method stub
     	String str;
-       System.out.println("찾을 방법을 입력하세요 1.일정번호 2.작성자 3.카테고리 ");
+       System.out.println("찾을 방법을 입력하세요 1.일정번호 2.작성자 3.부서 ");
        System.out.print(" ☞ ");
        String menu = sc.nextLine();
        menu=onlyNum(menu,3);
@@ -171,11 +171,11 @@ public class CalendarSystem {
        System.out.println("일정을 볼 날짜를 입력하세요");
        System.out.print(" ☞ ");
        String str=sc.nextLine();
-       str=onlyNum(str,gc.getActualMaximum(Calendar.DATE));
-       if(str==null) {
-       	System.out.println("입력 오류");
-       	showList();
-       }
+//       str=onlyNum(str,31);
+//       if(str==null) {
+//       	System.out.println("입력 오류");
+//       	showList();
+//       }
        int selectedDay=Integer.parseInt(str);
         
         int status = mc.daySchedule(mc.getMonth(),selectedDay,user);
@@ -232,7 +232,7 @@ public class CalendarSystem {
       System.out.println("삭제할 일정의 일정번호를 입력하세요");
       System.out.print(" ☞ ");
       String str=sc.nextLine();
-      str=onlyNum(str,mc.getScheduleList().size());
+      str=onlyNum(str,31);
       if(str==null) {
       	System.out.println("입력 오류");
       	removeSchedule();
@@ -251,7 +251,7 @@ public class CalendarSystem {
       System.out.println("상세보기할 일정의 일정번호를 입력하세요");
       System.out.print(" ☞ ");
       String str=sc.nextLine();
-      str=onlyNum(str,mc.getScheduleList().size());
+      str=onlyNum(str,31);
       if(str==null) {
       	System.out.println("입력 오류");
       	scheduleDetail();
@@ -276,7 +276,7 @@ public class CalendarSystem {
       System.out.print("수정할 일정의 일정번호를 입력하세요");
       System.out.print(" ☞ ");
       String str=sc.nextLine();
-      str=onlyNum(str,mc.getScheduleList().size());
+      str=onlyNum(str,31);
       if(str==null) {
       	System.out.println("입력 오류");
       	updateSchedule();
