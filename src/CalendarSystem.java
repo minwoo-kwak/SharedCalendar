@@ -30,12 +30,12 @@ public class CalendarSystem {
     public void init(User user) {
 
     	this.user=user;
-        System.out.println("날짜를 입력하세요, 종료:q");
+        System.out.println("날짜를 입력하세요, 뒤로가기:q");
         System.out.println("형식 : yyyy-MM");
         System.out.print(" ☞ ");
         String date = sc.nextLine();
         if(date.matches("(\\d{4}-\\d{2})|q")) {
-        	if(date.equals("q")) return;
+        	if(date.equals("q")) um.init();
             String[] dateArr = date.split("-");  
             mc = new MakeCalendar(Integer.parseInt(dateArr[0]),Integer.parseInt(dateArr[1]));
             mc.load(filePath, fileName);
@@ -254,7 +254,7 @@ public class CalendarSystem {
       str=onlyNum(str,mc.getScheduleList().size());
       if(str==null) {
       	System.out.println("입력 오류");
-      	removeSchedule();
+      	scheduleDetail();
       }
       int upNum=Integer.parseInt(str);
       Schedule sch= mc.search(upNum);
@@ -279,7 +279,7 @@ public class CalendarSystem {
       str=onlyNum(str,mc.getScheduleList().size());
       if(str==null) {
       	System.out.println("입력 오류");
-      	removeSchedule();
+      	updateSchedule();
       }
       int upNum=Integer.parseInt(str);
       Schedule sch= mc.search(upNum);
