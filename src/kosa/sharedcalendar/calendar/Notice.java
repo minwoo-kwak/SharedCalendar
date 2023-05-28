@@ -1,3 +1,4 @@
+package kosa.sharedcalendar.calendar;
 import java.util.Date;
 
 public class Notice {

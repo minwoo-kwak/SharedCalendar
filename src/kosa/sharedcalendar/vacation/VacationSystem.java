@@ -1,5 +1,9 @@
+package kosa.sharedcalendar.vacation;
 import java.util.ArrayList;
 import java.util.List;
+
+import kosa.sharedcalendar.user.User;
+import kosa.sharedcalendar.user.UserManager;
 
 public class VacationSystem {
 

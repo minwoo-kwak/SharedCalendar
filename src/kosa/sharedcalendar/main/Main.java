@@ -1,6 +1,10 @@
+package kosa.sharedcalendar.main;
 
 import java.util.Scanner;
 import java.util.regex.Pattern;
+
+import kosa.sharedcalendar.company.Company;
+import kosa.sharedcalendar.user.UserManager;
 
 //import kosa.project.UserManager;
 
@@ -35,8 +39,7 @@ public class Main {
       // TODO Auto-generated method stub
 	   Company cp = new Company();
 	   UserManager um = new UserManager();
-	   cp.insertUser();
-	   cp.insertAdmin();
+	   
 	   um.init();
 //	   CalendarSystem sys = new CalendarSystem();
 //	   sys.init(user);

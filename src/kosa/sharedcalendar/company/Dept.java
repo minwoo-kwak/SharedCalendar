@@ -1,6 +1,9 @@
+package kosa.sharedcalendar.company;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import kosa.sharedcalendar.user.User;
 
 public class Dept {
 	List<User> userList;

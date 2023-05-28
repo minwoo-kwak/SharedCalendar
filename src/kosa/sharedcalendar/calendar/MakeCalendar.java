@@ -1,11 +1,12 @@
+package kosa.sharedcalendar.calendar;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
+
+import kosa.sharedcalendar.filesystem.FileSystem;
+import kosa.sharedcalendar.user.User;
 
 
 public class MakeCalendar {

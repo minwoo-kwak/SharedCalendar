@@ -1,5 +1,8 @@
+package kosa.sharedcalendar.user;
 
 import java.time.LocalDate;
+
+import kosa.sharedcalendar.vacation.Vacation;
 
 public class User {
 
@@ -11,7 +14,7 @@ public class User {
 	private String phone;
 	private String email;
 	private LocalDate hireDate;
-	private Vacation vacation;
+	private Vacation vacation = new Vacation();
 
 	public User() {
 	}

@@ -1,3 +1,4 @@
+package kosa.sharedcalendar.report;
 import java.io.Serializable;
 
 public class Report implements Serializable {

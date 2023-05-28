@@ -1,3 +1,4 @@
+package kosa.sharedcalendar.calendar;
 import java.io.Serializable;
 import java.util.Date;
 

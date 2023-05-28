@@ -1,3 +1,4 @@
+package kosa.sharedcalendar.calendar;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -10,6 +11,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+import kosa.sharedcalendar.filesystem.FileSystem;
+import kosa.sharedcalendar.report.ReportSystem;
+import kosa.sharedcalendar.user.User;
+import kosa.sharedcalendar.user.UserManager;
 
 import java.util.Calendar;
 
@@ -172,11 +177,13 @@ public class CalendarSystem {
        System.out.print(" ☞ ");
        String str=sc.nextLine();
        str=onlyNum(str,gc.getActualMaximum(Calendar.DATE));
+       int selectedDay=-1;
        if(str==null) {
        	System.out.println("입력 오류");
        	showList();
+       } else {
+    	   selectedDay=Integer.parseInt(str);    	   
        }
-       int selectedDay=Integer.parseInt(str);
         
         int status = mc.daySchedule(mc.getMonth(),selectedDay,user);
         int[] info ={selectedDay,status};

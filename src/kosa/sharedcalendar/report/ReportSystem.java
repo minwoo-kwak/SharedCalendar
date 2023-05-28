@@ -1,9 +1,15 @@
+package kosa.sharedcalendar.report;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+
+import kosa.sharedcalendar.calendar.MakeCalendar;
+import kosa.sharedcalendar.calendar.Schedule;
+import kosa.sharedcalendar.filesystem.FileSystem;
+import kosa.sharedcalendar.user.UserManager;
 
 public class ReportSystem {
 	List<Report> reportList = new ArrayList<Report>();

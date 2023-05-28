@@ -1,3 +1,4 @@
+package kosa.sharedcalendar.user;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;

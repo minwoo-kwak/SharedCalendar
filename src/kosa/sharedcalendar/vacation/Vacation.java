@@ -1,5 +1,8 @@
+package kosa.sharedcalendar.vacation;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+
+import kosa.sharedcalendar.user.User;
 
 public class Vacation {
 	private int annualLeave; // 연차

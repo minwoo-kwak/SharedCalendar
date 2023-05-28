@@ -1,3 +1,4 @@
+package kosa.sharedcalendar.filesystem;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
